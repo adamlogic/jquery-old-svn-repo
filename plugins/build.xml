@@ -145,4 +145,28 @@
         </antcall>
     </target>
 
+	<target name="scrollTo" description="Build scrollTo plugin.">
+        <antcall target="generic">
+            <param name="name" value="scrollTo" />
+        </antcall>
+    </target>
+    
+    <target name="preload" description="Build preload plugin.">
+        <antcall target="generic">
+            <param name="name" value="preload" />
+        </antcall>
+    </target>
+    
+    <target name="ajaxFilter" description="Build ajaxFilter plugin.">
+        <antcall target="generic">
+            <param name="name" value="ajaxFilter" />
+        </antcall>
+    </target>
+    
+    <target name="xhr" description="Build xhr plugin.">
+        <antcall target="generic">
+            <param name="name" value="xhr" />
+        </antcall>
+    </target>
+
 </project>
