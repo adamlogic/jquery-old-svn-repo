@@ -10,7 +10,7 @@
  * Thanks to Kenton Simpson for contributing many good ideas!
  *
  * $Id$
- * @version: 3.02  10/22/2008
+ * @version: 3.03  10/22/2008
  * @requires jQuery v1.2.3 or later
  */
 
@@ -19,7 +19,7 @@
 $.taconite = function(xml) { processDoc(xml); };
 
 $.taconite.debug = 0;  // set to true to enable debug logging to Firebug
-$.taconite.version = '3.02';
+$.taconite.version = '3.03';
 $.taconite.defaults = {
     cdataWrap: 'div'
 };
@@ -110,8 +110,8 @@ function go(xml) {
         var doc;
         log('attempting string to document conversion');
         try {
-            if (window.ActiveXObject) {
-                doc = new ActiveXObject('Microsoft.XMLDOM');
+            if($.browser.msie) {
+                doc = $("<xml>")[0];
                 doc.async = 'false';
                 doc.loadXML(s);
             }
