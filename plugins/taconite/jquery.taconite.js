@@ -7,11 +7,11 @@
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
- * Thanks to Kenton Simpson for contributing some good ideas!
+ * Thanks to Kenton Simpson for contributing many good ideas!
  *
  * $Id$
- * @version: 3.01  01/22/2008
- * @requires jQuery v1.1.2 or later
+ * @version: 3.02  10/22/2008
+ * @requires jQuery v1.2.3 or later
  */
 
 (function($) {
@@ -19,7 +19,7 @@
 $.taconite = function(xml) { processDoc(xml); };
 
 $.taconite.debug = 0;  // set to true to enable debug logging to Firebug
-$.taconite.version = '3.01';
+$.taconite.version = '3.02';
 $.taconite.defaults = {
     cdataWrap: 'div'
 };
@@ -74,12 +74,12 @@ function log() {
 function processDoc(xml) { 
     var status = true, ex;
     try {
-        $.event.trigger('taconite.begin.notify', [xml])
+        $.event.trigger('taconite-begin-notify', [xml])
         status = go(xml); 
     } catch(e) {
         status = ex = e;
     }
-    $.event.trigger('taconite.complete.notify', [xml, !!status, status === true ? null : status]);
+    $.event.trigger('taconite-complete-notify', [xml, !!status, status === true ? null : status]);
     if (ex) throw ex;
 };
 
@@ -184,13 +184,18 @@ function go(xml) {
             postProcess();
     
         function postProcess() {
-            if (!$.browser.opera && !$.browser.msie) return; 
+            if ($.browser.mozilla) return; 
             // post processing fixes go here; currently there is only one:
-            // fix1: opera and IE6 don't maintain selected options in all cases (thanks to Karel Fucík for this!)
+            // fix1: opera, IE6, Safari/Win don't maintain selected options in all cases (thanks to Karel Fucík for this!)
             $('select:taconiteTag').each(function() {
+                var sel = this;
                 $('option:taconiteTag', this).each(function() {
                     this.setAttribute('selected','selected');
                     this.taconiteTag = null;
+                    if (sel.type == 'select-one') {
+                        var idx = $('option',sel).index(this);
+                        sel.selectedIndex = idx;
+                    }
                 });
                 this.taconiteTag = null;
             });
@@ -233,7 +238,7 @@ function go(xml) {
             }
             if (!e) {
                 e = document.createElement(tag);
-                copyAttrs(e, node);
+                copyAttrs(e, node, tag == 'option' && $.browser.safari);
             }
             
             // IE fix; colspan must be explicitly set
@@ -253,7 +258,7 @@ function go(xml) {
                     if(child) e.appendChild(child);
                 }
             }
-            if ($.browser.msie || $.browser.opera) {
+            if (! $.browser.mozilla) {
                 if (tag == 'select' || (tag == 'option' && node.getAttribute('selected')))
                     e.taconiteTag = 1;
             }
