@@ -492,6 +492,19 @@ test("errorcontainer, show/hide only on submit", function() {
 	ok( v.form(), "Form now valid, trigger showErrors but not invalid-form" );
 });
 
+test("option invalidHandler", function() {
+	expect(1);
+	var v = $("#testForm1clean").validate({
+		invalidHandler: function() {
+			ok( true, "invalid-form event triggered called" );
+			start();
+		}
+	});
+	$("#usernamec").val("asdf").rules("add", { required: true, remote: "users.php" });
+	stop();
+	$("#testForm1clean").submit();
+});
+
 test("findByName()", function() {
 	isSet( new $.validator({}, document.getElementById("form")).findByName(document.getElementById("radio1").name), $("#form").find("[name=radio1]") );
 });

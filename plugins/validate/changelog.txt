@@ -7,6 +7,8 @@
 * Fixed #3503: Extended rules("add") to accept messages propery: use to specify add custom messages to an element via rules("add", { messages: { required: "Required! " } }); 
 * Fixed #3356: Regression from #2908 when using meta-option
 * Fixed #3370: Added ignoreTitle option, set to skip reading messages from the title attribute, helps to avoid issues with Google Toolbar; default is false for compability
+* Fixed #3516: Trigger invalid-form event even when remote validation is involved
+* Added invalidHandler option as a shortcut to bind("invalid-form", function() {})
 
 1.4
 ---

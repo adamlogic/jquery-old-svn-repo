@@ -292,7 +292,10 @@ $.extend($.validator, {
 			}
 			$(this.currentForm)
 				.delegate("focusin focusout keyup", ":text, :password, :file, select, textarea", delegate)
-				.delegate("click", ":radio, :checkbox", delegate);
+				.delegate("click", ":radio, :checkbox", delegate)
+
+			if (this.settings.invalidHandler)
+				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
 		},
 
 		// http://docs.jquery.com/Plugins/Validation/Validator/form
@@ -301,7 +304,7 @@ $.extend($.validator, {
 			$.extend(this.submitted, this.errorMap);
 			this.invalid = $.extend({}, this.errorMap);
 			if (!this.valid())
-				$(this.currentForm).triggerHandler("invalid-form.validate", [this]);
+				$(this.currentForm).triggerHandler("invalid-form", [this]);
 			this.showErrors();
 			return this.valid();
 		},
@@ -687,12 +690,14 @@ $.extend($.validator, {
 		
 		stopRequest: function(element, valid) {
 			this.pendingRequest--;
-			// sometimes synchronization fails, make pendingRequest is never < 0
+			// sometimes synchronization fails, make sure pendingRequest is never < 0
 			if (this.pendingRequest < 0)
 				this.pendingRequest = 0;
 			delete this.pending[element.name];
 			if ( valid && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
 				$(this.currentForm).submit();
+			} else if (!valid && this.pendingRequest == 0 && this.formSubmitted) {
+				$(this.currentForm).trigger("invalid-form");
 			}
 		},
 		
@@ -902,16 +907,16 @@ $.extend($.validator, {
 					dataType: "json",
 					data: data,
 					success: function(response) {
-						if ( !response ) {
-							var errors = {};
-							errors[element.name] =  response || validator.defaultMessage( element, "remote" );
-							validator.showErrors(errors);
-						} else {
+						if ( response ) {
 							var submitted = validator.formSubmitted;
 							validator.prepareElement(element);
 							validator.formSubmitted = submitted;
 							validator.successList.push(element);
 							validator.showErrors();
+						} else {
+							var errors = {};
+							errors[element.name] =  response || validator.defaultMessage( element, "remote" );
+							validator.showErrors(errors);
 						}
 						previous.valid = response;
 						validator.stopRequest(element, response);
