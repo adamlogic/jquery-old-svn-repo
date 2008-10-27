@@ -8,7 +8,7 @@
 	<meta name="robots" content="index,follow" />
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="jquery.scrollTo-min.js"></script>
 	<script type="text/javascript">
 		jQuery(function( $ ){
 			/**
@@ -138,6 +138,21 @@
 					}
 				});
 			});
+			
+			/* This can be used to test scroll on Iframes and window
+			$('body').append('<iframe src="/" />');
+			setTimeout(function(){
+				//$(window).scrollTo( 1e8, 1000 ).scrollTo( 0, 1000 );
+				$(window).scrollTo( 1e8, 1000, function(){
+					$('iframe').scrollTo( 1e8, 1000 ).scrollTo( 0, 1000 );
+				});
+			}, 3000 );
+			/*
+			setTimeout(function(){
+				$('#foo').scrollTo( '#two', 1000 );
+				//$.scrollTo( '#two' );				
+			}, 2000 );
+			/* */
 		});
 	</script>
 </head>
@@ -208,5 +223,12 @@
 		<p class="message">$.scrollTo.defaults.axis has been set to 'xy' for the demo, normally it's only 'y'. Note that 'xy' or 'yx' matters when queue is set to true.</p>
 		<p class="message">Don't use a hash for the target to scroll only one axis, use the option 'axis' instead. The hash is used to scroll both axes with different positions.</p>
 	</div>
+	<!-- This HTML is needed for the test on Iframes ->
+		<div id="foo" style="position:absolute;bottom:50;left:150;height:200px;width:200px;overflow:auto;border:1px black solid;diplay:block;">
+		<div id="one" style="height:400px;width:300px;background:green;">&nbsp;</div>
+		<div id="two" style="background:blue">HI!</div>
+		<div id="three" style="height:6000px;width:300px;background:red;">&nbsp;</div>
+	</div>
+	<!-- -->
 </body>
 </html>

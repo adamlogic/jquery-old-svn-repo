@@ -1,18 +1,14 @@
-jQuery.ScrollTo 1.3
+jQuery.ScrollTo 1.4
 
 * Apart from the target and duration, the plugin can receive a hash of settings. Documentation and examples are included in the source file.
 
 * If you are interested in animated "same-page-scrolling" using anchors(<a href="#some_id">...), check http://jquery.com/plugins/project/LocalScroll
-
-* The plugin no longer depends on Dimensions.
 
 * The target can be specified as:
 	* A Number/String specifying a position using px or just the number.
 	* A string selector that will be relative, to the element that is going to be scrolled, and must match at least one child.
 	* A DOM element, logically child of the element to scroll.
 	* A hash { top:x, left:y }, x and y can be any kind of number/string like described above.
-
-* Appart from $().scrollTo(), the plugin includes $.scrollTo() to scroll the whole screen. They accept the same parameters.
 
 * The plugin supports relative animations
 
