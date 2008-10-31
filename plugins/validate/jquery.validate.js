@@ -697,7 +697,7 @@ $.extend($.validator, {
 			if ( valid && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
 				$(this.currentForm).submit();
 			} else if (!valid && this.pendingRequest == 0 && this.formSubmitted) {
-				$(this.currentForm).trigger("invalid-form");
+				$(this.currentForm).triggerHandler("invalid-form", [this]);
 			}
 		},
 		
