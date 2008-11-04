@@ -75,11 +75,11 @@ $().ready(function() {
 		<legend>Login Form</legend>
 		<p>
 			<label>Username</label>
-			<input name="user" title="Please enter your username (at least 3 characters)" class="{required:true,minLength:3}" />
+			<input name="user" title="Please enter your username (at least 3 characters)" class="{required:true,minlength:3}" />
 		</p>
 		<p>
 			<label>Password</label>
-			<input type="password" maxlength="12" name="password" title="Please enter your password, between 5 and 12 characters" class="{required:true,minLength:5}" />
+			<input type="password" maxlength="12" name="password" title="Please enter your password, between 5 and 12 characters" class="{required:true,minlength:5}" />
 		</p>
 		<div class="error">
 		</div>
@@ -119,11 +119,11 @@ $().ready(function() {
 		</p>
 		<p>
 			<label for="phone">Phone</label>
-			<input id="phone" name="phone" class="some styles {validate:{required:true,number:true, rangeLength:[2,8]}}" />
+			<input id="phone" name="phone" class="some styles {validate:{required:true,number:true, rangelength:[2,8]}}" />
 		</p>
 		<p>
 			<label for="address">Address</label>
-			<input id="address" name="address" class="some other styles {validate:{required:true,minLength:3}}" />
+			<input id="address" name="address" class="some other styles {validate:{required:true,minlength:3}}" />
 		</p>
 		<p>
 			<label for="avatar">Avatar</label>
