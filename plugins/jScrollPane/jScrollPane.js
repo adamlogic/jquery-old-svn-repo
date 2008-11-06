@@ -72,9 +72,6 @@ jQuery.fn.jScrollPane = function(settings)
 				var paneWidth = $c.innerWidth();
 				var paneHeight = $c.outerHeight();
 				var trackHeight = paneHeight;
-				if ($c.unmousewheel) {
-					$c.unmousewheel();
-				}
 				jQuery('>.jScrollPaneTrack, >.jScrollArrowUp, >.jScrollArrowDown', $c).remove();
 				$this.css({'top':0});
 			} else {
