@@ -396,6 +396,25 @@ jQuery.fn.jScrollPane = function(settings)
 				initDrag();
 				
 				scrollTo(-currentScrollPosition, true);
+			
+				$('input, a', this).bind(
+					'focus',
+					function()
+					{
+						// We need to wait a millisecond so that any scroll triggered by the link has happened before we are checking it...
+						// Luckily we have the closure to keep track of all of our vars...
+						setTimeout(function()
+							{
+								//console.log('In TO', $this.offset().top, $this.position().top);
+								if ($this.position().top < 0) {
+									var diff = $track.position().top;
+									//console.log(diff);
+									$container.scrollTop(0);
+									$this[0].scrollTo(-diff + 30 - (parseInt($pane.css('top')) || 0), true);
+								}
+							}, 0);
+					}
+				)
 				
 				jQuery.jScrollPane.active.push($this[0]);
 				
