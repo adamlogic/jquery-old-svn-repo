@@ -307,20 +307,18 @@ jQuery.fn.jScrollPane = function(settings)
 				
 				$track.bind('mousedown', onTrackClick);
 				
-				// if the mousewheel plugin has been included then also react to the mousewheel
-				if ($container.mousewheel) {
-					$container.mousewheel(
-						function (event, delta) {
-							initDrag();
-							ceaseAnimation();
-							var d = dragPosition;
-							positionDrag(dragPosition - delta * mouseWheelMultiplier);
-							var dragOccured = d != dragPosition;
-							return !dragOccured;
-						},
-						false
-					);					
-				}
+				$container.bind(
+					'mousewheel',
+					function (event, delta) {
+						initDrag();
+						ceaseAnimation();
+						var d = dragPosition;
+						positionDrag(dragPosition - delta * mouseWheelMultiplier);
+						var dragOccured = d != dragPosition;
+						return !dragOccured;
+					}
+				);
+
 				var _animateToPosition;
 				var _animateToInterval;
 				function animateToPosition()
