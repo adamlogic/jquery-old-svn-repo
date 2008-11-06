@@ -55,6 +55,9 @@ jQuery.fn.jScrollPane = function(settings)
 			scrollbarOnLeft: false
 		}, settings
 	);
+
+	var rf = function() { return false; };
+	
 	return this.each(
 		function()
 		{
@@ -174,7 +177,8 @@ jQuery.fn.jScrollPane = function(settings)
 									onArrowMouseDown();
 									this.blur();
 									return false;
-								}),
+								})
+								.bind('click', rf),
 							jQuery('<a></a>')
 								.attr({'href':'javascript:;', 'className':'jScrollArrowDown'})
 								.css({'width':settings.scrollbarWidth+'px'})
@@ -187,6 +191,7 @@ jQuery.fn.jScrollPane = function(settings)
 									this.blur();
 									return false;
 								})
+								.bind('click', rf)
 						);
 					var $upArrow = jQuery('>.jScrollArrowUp', $container);
 					var $downArrow = jQuery('>.jScrollArrowDown', $container);
