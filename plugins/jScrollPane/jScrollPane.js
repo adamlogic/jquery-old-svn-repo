@@ -101,28 +101,27 @@ jQuery.fn.jScrollPane = function(settings)
 						$this.jScrollPane(settings);
 					}
 				);
+				
 			}
-
+			
 			if (settings.reinitialiseOnImageLoad) {
 				// code inspired by jquery.onImagesLoad: http://plugins.jquery.com/project/onImagesLoad
 				// except we re-initialise the scroll pane when each image loads so that the scroll pane is always up to size...
+				// TODO: Do I even need to store it in $.data? Is a local variable here the same since I don't pass the reinitialiseOnImageLoad when I re-initialise?
 				var $imagesToLoad = $.data(paneEle, 'jScrollPaneImagesToLoad') || $('img', $this);
+				var loadedImages = [];
+				
 				if ($imagesToLoad.length) {
 					$imagesToLoad.each(function(i, val)	{
 						$(this).bind('load', function() {
-							var loadedImages = $.data(paneEle, 'jScrollPaneLoadedImages') || [];
-							var updatedImagesToLoad = $.data(paneEle, 'jScrollPaneImagesToLoad') || $('img', $this);
 							if(jQuery.inArray(i, loadedImages) == -1){ //don't double count images
 								loadedImages.push(val); //keep a record of images we've seen
-								$.data(paneEle, 'jScrollPaneLoadedImages', loadedImages);
-								updatedImagesToLoad = $.grep(updatedImagesToLoad, function(n, i) {
+								$imagesToLoad = $.grep($imagesToLoad, function(n, i) {
 									return n != val;
 								});
-								$.data(paneEle, 'jScrollPaneImagesToLoad', updatedImagesToLoad);
-								//console.log('Image loaded:', val);
-								//console.log('jScrollPaneLoadedImages', loadedImages);
-								//console.log('jScrollPaneImagesToLoad', updatedImagesToLoad);
-								$this.jScrollPane(); // re-initialise
+								$.data(paneEle, 'jScrollPaneImagesToLoad', $imagesToLoad);
+								settings.reinitialiseOnImageLoad = false;
+								$this.jScrollPane(settings); // re-initialise
 							}
 						}).each(function(i, val) {
 							if(this.complete || this.complete===undefined) { 
@@ -399,7 +398,7 @@ jQuery.fn.jScrollPane = function(settings)
 				scrollTo(-currentScrollPosition, true);
 				
 				jQuery.jScrollPane.active.push($this[0]);
-
+				
 			} else {
 				$this.css(
 					{
