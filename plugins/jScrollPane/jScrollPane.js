@@ -30,6 +30,7 @@
  *								animateStep		-	The amount to divide the remaining scroll distance by when animating (default 3)
  *								maintainPosition-	Whether you want the contents of the scroll pane to maintain it's position when you re-initialise it - so it doesn't scroll as you add more content (default true)
  *								scrollbarOnLeft	-	Display the scrollbar on the left side?  (needs stylesheet changes, see examples.html)
+ *								reinitialiseOnImageLoad - Whether the jScrollPane should automatically re-initialise itself when any contained images are loaded
  * @return jQuery
  * @cat Plugins/jScrollPane
  * @author Kelvin Luck (kelvin AT kelvinluck DOT com || http://www.kelvinluck.com)
@@ -52,7 +53,8 @@ jQuery.fn.jScrollPane = function(settings)
 			animateInterval : 100,
 			animateStep: 3,
 			maintainPosition: true,
-			scrollbarOnLeft: false
+			scrollbarOnLeft: false,
+			reinitialiseOnImageLoad: false
 		}, settings
 	);
 
@@ -62,6 +64,7 @@ jQuery.fn.jScrollPane = function(settings)
 		function()
 		{
 			var $this = jQuery(this);
+			var paneEle = this;
 			
 			if (jQuery(this).parent().is('.jScrollPaneContainer')) {
 				var currentScrollPosition = settings.maintainPosition ? $this.offset({relativeTo:jQuery(this).parent()[0]}).top : 0;
@@ -102,6 +105,38 @@ jQuery.fn.jScrollPane = function(settings)
 					}
 				);
 			}
+
+			if (settings.reinitialiseOnImageLoad) {
+				// code inspired by jquery.onImagesLoad: http://plugins.jquery.com/project/onImagesLoad
+				// except we re-initialise the scroll pane when each image loads so that the scroll pane is always up to size...
+				var $imagesToLoad = $.data(paneEle, 'jScrollPaneImagesToLoad') || $('img', $this);
+				if ($imagesToLoad.length) {
+					$imagesToLoad.each(function(i, val)	{
+						$(this).bind('load', function() {
+							var loadedImages = $.data(paneEle, 'jScrollPaneLoadedImages') || [];
+							var updatedImagesToLoad = $.data(paneEle, 'jScrollPaneImagesToLoad') || $('img', $this);
+							if(jQuery.inArray(i, loadedImages) == -1){ //don't double count images
+								loadedImages.push(val); //keep a record of images we've seen
+								$.data(paneEle, 'jScrollPaneLoadedImages', loadedImages);
+								updatedImagesToLoad = $.grep(updatedImagesToLoad, function(n, i) {
+									return n != val;
+								});
+								$.data(paneEle, 'jScrollPaneImagesToLoad', updatedImagesToLoad);
+								//console.log('Image loaded:', val);
+								//console.log('jScrollPaneLoadedImages', loadedImages);
+								//console.log('jScrollPaneImagesToLoad', updatedImagesToLoad);
+								$this.jScrollPane(); // re-initialise
+							}
+						}).each(function(i, val) {
+							if(this.complete || this.complete===undefined) { 
+								//needed for potential cached images
+								this.src = this.src; 
+							} 
+						});
+					});
+				};
+			}
+
 			var p = this.originalSidePaddingTotal;
 			
 			var cssToApply = {
