@@ -398,7 +398,7 @@ jQuery.fn.jScrollPane = function(settings)
 				scrollTo(-currentScrollPosition, true);
 			
 				// Deal with it when the user tabs to a link or form element within this scrollpane
-				$('input, a, select', this).bind(
+				$('*', this).bind(
 					'focus',
 					function()
 					{
@@ -406,6 +406,33 @@ jQuery.fn.jScrollPane = function(settings)
 						scrollTo($(this).position().top - settings.scrollbarMargin , true);
 					}
 				)
+				
+				if (location.hash) {
+					// the timeout needs to be longer in IE when not loading from cache...
+					setTimeout(function() {
+						$(location.hash, $this).trigger('focus');
+					}, $.browser.msie ? 100 : 0);
+				}
+				
+				// use event delegation to listen for all clicks on links and hijack them if they are links to
+				// anchors within our content...
+				$(document).bind(
+					'click',
+					function(e)
+					{
+						$target = $(e.target);
+						if ($target.is('a')) {
+							var h = $target.attr('href');
+							if (h.substr(0, 1) == '#') {
+								$linkedEle = $(h, $this);
+								if ($linkedEle.length) {
+									$linkedEle.trigger('focus');
+									return false;
+								}
+							}
+						}
+					}
+				);
 				
 				jQuery.jScrollPane.active.push($this[0]);
 				
