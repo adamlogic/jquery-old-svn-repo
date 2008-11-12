@@ -17,8 +17,8 @@
 		// show a simple loading indicator
 		var loader = jQuery('<div id="loader"><img src="images/loading.gif" alt="loading..." /></div>')
 			.css({position: "relative", top: "1em", left: "25em"})
-			.hide()
-			.appendTo("body");
+			.appendTo("body")
+			.hide();
 		jQuery().ajaxStart(function() {
 			loader.show();
 		}).ajaxStop(function() {
