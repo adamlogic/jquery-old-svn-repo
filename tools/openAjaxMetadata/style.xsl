@@ -69,13 +69,17 @@
 					</xsl:attribute>
 					<description><xsl:value-of select="desc" /></description>
 					<!-- TODO part of the spec, but with a very different interpretation -->
-					<options>
-						<xsl:for-each select="../option">
-							<option name="{@name}" datatype="{@type}">
-								<description><xsl:value-of select="desc" /></description>
-							</option>
-						</xsl:for-each>
-					</options>
+					<xsl:choose>
+						<xsl:when test="../option">
+							<properties>
+								<xsl:for-each select="../option">
+									<property name="{@name}" datatype="{@type}">
+										<description><xsl:value-of select="desc" /></description>
+									</property>
+								</xsl:for-each>
+							</properties>
+						</xsl:when>
+					</xsl:choose>
 				</parameter>
 			</xsl:for-each>
 		</parameters>
