@@ -5,11 +5,11 @@
 	
 	<!-- TODO convert @type array notation to bracket notation, eg. Array<DOMElement> to [DOMElement] -->
 	<xsl:template match="/*">
-		<api>
+		<api xmlns="http://openajax.org/metadata">
 			<class name="jQuery">
 				<constructors>
 					<xsl:for-each select="//function[@name='jQuery']">
-						<constructor scope="instance">
+						<constructor>
 							<shortDescription><xsl:value-of select="desc" /></shortDescription>
 							<description><xsl:value-of select="longdesc" /></description>
 							<xsl:call-template name="parameters" />
@@ -18,18 +18,18 @@
 						</constructor>
 					</xsl:for-each>
 				</constructors>
-				<fields>
+				<properties>
 					<xsl:for-each select="//property">
 						<xsl:sort select="translate(@name,'$.','')"/>
 						<xsl:sort select="count(params)"/>
-						<field name="{@name}" readonly="true" datatype="{@return}">
+						<property name="{@name}" readonly="true" datatype="{@return}" default="">
 							<xsl:call-template name="scope" />
 							<shortDescription><xsl:value-of select="desc" /></shortDescription>
 							<description><xsl:value-of select="longdesc" /></description>
 							<xsl:call-template name="examples" />
-						</field>
+						</property>
 					</xsl:for-each>
-				</fields>
+				</properties>
 				<methods>
 					<xsl:for-each select="//function[@name!='jQuery']">
 						<xsl:sort select="translate(@name,'$.','')"/>
@@ -61,10 +61,10 @@
 		<parameters>
 			<xsl:for-each select="params">
 				<parameter name="{@name}" datatype="{@type}">
-					<xsl:attribute name="required">
+					<xsl:attribute name="usage">
 						<xsl:choose>
-							<xsl:when test="not(@optional)">true</xsl:when>
-							<xsl:when test="@optional">false</xsl:when>
+							<xsl:when test="not(@optional)">required</xsl:when>
+							<xsl:when test="@optional">optional</xsl:when>
 						</xsl:choose>
 					</xsl:attribute>
 					<description><xsl:value-of select="desc" /></description>
@@ -73,7 +73,7 @@
 						<xsl:when test="../option">
 							<properties>
 								<xsl:for-each select="../option">
-									<property name="{@name}" datatype="{@type}">
+									<property name="{@name}" datatype="{@type}" default="{@default}">
 										<description><xsl:value-of select="desc" /></description>
 									</property>
 								</xsl:for-each>

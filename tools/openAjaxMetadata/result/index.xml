@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<api>
+<api xmlns="http://openajax.org/metadata">
 <class name="jQuery">
 <constructors>
-<constructor scope="instance">
+<constructor>
 <shortDescription>This function accepts a string containing a CSS selector which is then used to match a set of elements.</shortDescription>
 <description>The core functionality of jQuery centers around this function. Everything in jQuery is based upon this, or uses this in some way. The most basic use of this function is to pass in an expression (usually consisting of CSS), which then finds all matching elements.
 
@@ -10,10 +10,10 @@ By default, if no context is specified, $() looks for DOM elements within the co
 
 See &lt;a href='Selectors'&gt;Selectors&lt;/a&gt; for the allowed CSS syntax for expressions. </description>
 <parameters>
-<parameter name="expression" datatype="String" required="true">
+<parameter name="expression" datatype="String" usage="required">
 <description>An expression to search with.</description>
 </parameter>
-<parameter name="context" datatype="Element, jQuery" required="false">
+<parameter name="context" datatype="Element, jQuery" usage="optional">
 <description>A DOM Element, Document or jQuery to use as context</description>
 </parameter>
 </parameters>
@@ -34,11 +34,11 @@ See &lt;a href='Selectors'&gt;Selectors&lt;/a&gt; for the allowed CSS syntax for
 </example>
 </examples>
 </constructor>
-<constructor scope="instance">
+<constructor>
 <shortDescription>Create DOM elements on-the-fly from the provided String of raw HTML.</shortDescription>
 <description>You can pass in plain HTML Strings written by hand, create them using some template engine or plugin, or load them via AJAX. There are limitations when creating input elements, see the second example. Also when passing strings that may include slashes (such as an image path), escape the slashes.  When creating single elements use the closing tag or XHTML format.  For example, to create a span use $("&lt;span/&gt;") or $("&lt;span&gt;&lt;/span&gt;") instead of without the closing slash/tag.</description>
 <parameters>
-<parameter name="html" datatype="String" required="true">
+<parameter name="html" datatype="String" usage="required">
 <description>A string of HTML to create on the fly.</description>
 </parameter>
 </parameters>
@@ -57,11 +57,11 @@ $("&lt;input type='checkbox'/&gt;");</code>
 </example>
 </examples>
 </constructor>
-<constructor scope="instance">
+<constructor>
 <shortDescription>Wrap jQuery functionality around a single or multiple DOM Element(s).</shortDescription>
 <description>This function also accepts XML Documents and Window objects as valid arguments (even though they are not DOM Elements).</description>
 <parameters>
-<parameter name="elements" datatype="Element, Array&lt;Element&gt;" required="true">
+<parameter name="elements" datatype="Element, Array&lt;Element&gt;" usage="required">
 <description>DOM element(s) to be encapsulated by a jQuery object.</description>
 </parameter>
 </parameters>
@@ -77,7 +77,7 @@ $("&lt;input type='checkbox'/&gt;");</code>
 </example>
 </examples>
 </constructor>
-<constructor scope="instance">
+<constructor>
 <shortDescription>A shorthand for $(document).ready().</shortDescription>
 <description>Allows you to bind a function to be executed when the DOM document has finished loading. This function behaves just like $(document).ready(), in that it should be used to wrap other $() operations on your page that depend on the DOM being ready to be operated on. While this function is, technically, chainable - there really isn't much use for chaining against it.
 
@@ -85,7 +85,7 @@ You can have as many $(document).ready events on your page as you like.
 
 See ready(Function) for details about the ready event. </description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute when the DOM is ready.</description>
 </parameter>
 </parameters>
@@ -106,8 +106,8 @@ See ready(Function) for details about the ready event. </description>
 </examples>
 </constructor>
 </constructors>
-<fields>
-<field name="jQuery.boxModel" readonly="true" datatype="Boolean" scope="static">
+<properties>
+<property name="jQuery.boxModel" readonly="true" datatype="Boolean" default="" scope="static">
 <shortDescription>States if the current page, in the user's browser, is being rendered using the [http://www.w3.org/TR/REC-CSS2/box.html W3C CSS Box Model].</shortDescription>
 <description/>
 <examples>
@@ -131,8 +131,8 @@ See ready(Function) for details about the ready event. </description>
 <code>$.boxModel</code>
 </example>
 </examples>
-</field>
-<field name="jQuery.browser" readonly="true" datatype="Map" scope="static">
+</property>
+<property name="jQuery.browser" readonly="true" datatype="Map" default="" scope="static">
 <shortDescription>Contains flags for the useragent, read from navigator.userAgent.</shortDescription>
 <description>Available flags are:
 * safari
@@ -173,8 +173,8 @@ A combination of browser and object detection yields quite reliable results. </d
  }</code>
 </example>
 </examples>
-</field>
-<field name="jQuery.browser.version" readonly="true" datatype="String" scope="static">
+</property>
+<property name="jQuery.browser.version" readonly="true" datatype="String" default="" scope="static">
 <shortDescription>The version number of the rendering engine for the user's browser.</shortDescription>
 <description>Here are some typical results:
 * Internet Explorer: 6.0, 7.0
@@ -212,8 +212,8 @@ if (jQuery.browser.msie) {
 </code>
 </example>
 </examples>
-</field>
-<field name="length" readonly="true" datatype="Number" scope="instance">
+</property>
+<property name="length" readonly="true" datatype="Number" default="" scope="instance">
 <shortDescription>The number of elements in the jQuery object.</shortDescription>
 <description>In a The number of elements currently matched. The &lt;a href='Core/size'&gt;size&lt;/a&gt; function will return the same value.</description>
 <examples>
@@ -238,14 +238,14 @@ if (jQuery.browser.msie) {
   &lt;div&gt;&lt;/div&gt;</html>
 </example>
 </examples>
-</field>
-</fields>
+</property>
+</properties>
 <methods>
 <method name="add" scope="instance">
 <shortDescription>Adds more elements, matched by the given expression, to the set of matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="expr" datatype="String, DOMElement, Array&lt;DOMElement&gt;" required="true">
+<parameter name="expr" datatype="String, DOMElement, Array&lt;DOMElement&gt;" usage="required">
 <description>An expression whose matched elements are added for String, a string of HTML to create on the fly for DOMElement or one or more Elements to add if an Array.</description>
 </parameter>
 </parameters>
@@ -295,7 +295,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Adds the specified class(es) to each of the set of matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="class" datatype="String" required="true">
+<parameter name="class" datatype="String" usage="required">
 <description>One or more CSS classes to add to the elements, these are separated by spaces.</description>
 </parameter>
 </parameters>
@@ -333,7 +333,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Insert content after each of the matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="content" datatype="String, Element, jQuery" required="true">
+<parameter name="content" datatype="String, Element, jQuery" usage="required">
 <description>Content to insert after each target.</description>
 </parameter>
 </parameters>
@@ -365,7 +365,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Attach a function to be executed whenever an AJAX request completes. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.</shortDescription>
 <description>The XMLHttpRequest and settings used for that request are passed as arguments to the callback.</description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute.
 
 &lt;pre&gt;function (event, XMLHttpRequest, ajaxOptions) {
@@ -388,7 +388,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Attach a function to be executed whenever an AJAX request fails. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.</shortDescription>
 <description>The XMLHttpRequest and settings used for that request are passed as arguments to the callback. A third argument, an exception object, is passed if an exception occured while processing the request.</description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute.
 
 &lt;pre&gt;function (event, XMLHttpRequest, ajaxOptions, thrownError) {
@@ -412,7 +412,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Attach a function to be executed before an AJAX request is sent. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.</shortDescription>
 <description>The XMLHttpRequest and settings used for that request are passed as arguments to the callback.</description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute.
 
 &lt;pre&gt;function (event, XMLHttpRequest, ajaxOptions) {
@@ -435,7 +435,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Attach a function to be executed whenever an AJAX request begins and there is none already active. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.</shortDescription>
 <description/>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute.
 
 &lt;pre&gt;function () {
@@ -458,7 +458,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Attach a function to be executed whenever all AJAX requests have ended. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.</shortDescription>
 <description/>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute.
 &lt;pre&gt;function () {
   this; // dom element listening
@@ -480,7 +480,7 @@ if (jQuery.browser.msie) {
 <shortDescription>Attach a function to be executed whenever an AJAX request completes successfully. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.</shortDescription>
 <description>The event object, XMLHttpRequest, and settings used for that request are passed as arguments to the callback.</description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute.
 
 &lt;pre&gt;function (event, XMLHttpRequest, ajaxOptions) {
@@ -532,42 +532,42 @@ Note that properties should be specified using camel case eg. marginLeft instead
 
 The value associated with the key represents to what end the property will be animated. If a number is provided as the value, then the style property will be transitioned from its current state to that new number. Otherwise if the string "hide", "show", or "toggle" is provided, a default animation will be constructed for that property. </description>
 <parameters>
-<parameter name="params" datatype="Options" required="true">
+<parameter name="params" datatype="Options" usage="required">
 <description>A set of style attributes that you wish to animate, and to what end.</description>
 <properties>
-<property name="duration" datatype="String, Number">
+<property name="duration" datatype="String, Number" default="&quot;normal&quot;">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </property>
-<property name="easing" datatype="String">
+<property name="easing" datatype="String" default="&quot;swing&quot;">
 <description>The name of the easing effect that you want to use (Plugin Required). There are two built-in values, "linear" and "swing".</description>
 </property>
-<property name="complete" datatype="Function">
+<property name="complete" datatype="Function" default="">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.</description>
 </property>
-<property name="step" datatype="Callback">
+<property name="step" datatype="Callback" default="">
 <description/>
 </property>
-<property name="queue" datatype="Boolean">
+<property name="queue" datatype="Boolean" default="true">
 <description>Setting this to false will make the animation skip the queue and will begin running immediately. (Added in jQuery 1.2)</description>
 </property>
 </properties>
 </parameter>
-<parameter name="options" datatype="Options " required="true">
+<parameter name="options" datatype="Options " usage="required">
 <description>A set of options with which to configure the animation.</description>
 <properties>
-<property name="duration" datatype="String, Number">
+<property name="duration" datatype="String, Number" default="&quot;normal&quot;">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </property>
-<property name="easing" datatype="String">
+<property name="easing" datatype="String" default="&quot;swing&quot;">
 <description>The name of the easing effect that you want to use (Plugin Required). There are two built-in values, "linear" and "swing".</description>
 </property>
-<property name="complete" datatype="Function">
+<property name="complete" datatype="Function" default="">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.</description>
 </property>
-<property name="step" datatype="Callback">
+<property name="step" datatype="Callback" default="">
 <description/>
 </property>
-<property name="queue" datatype="Boolean">
+<property name="queue" datatype="Boolean" default="true">
 <description>Setting this to false will make the animation skip the queue and will begin running immediately. (Added in jQuery 1.2)</description>
 </property>
 </properties>
@@ -655,16 +655,16 @@ The value associated with the key represents to what end the property will be an
 
 As of jQuery 1.2 you can now animate properties by em and % (where applicable). Additionally, in jQuery 1.2, you can now do relative animations - specifying a "''+=''" or "''-=''" in front of the property value to move the element positively, or negatively, relative to the current position.</description>
 <parameters>
-<parameter name="params" datatype="Options" required="true">
+<parameter name="params" datatype="Options" usage="required">
 <description>A set of style attributes that you wish to animate, and to what end.</description>
 </parameter>
-<parameter name="duration" datatype="String, Number " required="false">
+<parameter name="duration" datatype="String, Number " usage="optional">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="easing" datatype="String " required="false">
+<parameter name="easing" datatype="String " usage="optional">
 <description>The name of the easing effect that you want to use (Plugin Required). There are two built-in values, "linear" and "swing".</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.</description>
 </parameter>
 </parameters>
@@ -749,7 +749,7 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Append content to the inside of every matched element.</shortDescription>
 <description>This operation is similar to doing an appendChild to all the specified elements, adding them into the document.</description>
 <parameters>
-<parameter name="content" datatype="String, Element, jQuery" required="true">
+<parameter name="content" datatype="String, Element, jQuery" usage="required">
 <description>Content to append to the target.</description>
 </parameter>
 </parameters>
@@ -779,7 +779,7 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Append all of the matched elements to another, specified, set of elements.</shortDescription>
 <description>This operation is, essentially, the reverse of doing a regular $(A).append(B), in that instead of appending B to A, you're appending A to B.</description>
 <parameters>
-<parameter name="content" datatype="String" required="true">
+<parameter name="content" datatype="String" usage="required">
 <description>target to which the content will be appended.</description>
 </parameter>
 </parameters>
@@ -799,7 +799,7 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Access a property on the first matched element. This method makes it easy to retrieve a property value from the first matched element. If the element does not have an attribute with such a name, undefined is returned.</shortDescription>
 <description/>
 <parameters>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>The name of the property to access.</description>
 </parameter>
 </parameters>
@@ -828,7 +828,7 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Set a key/value object as properties to all matched elements.</shortDescription>
 <description>This serves as the best way to set a large number of properties on all matched elements. Note that you must use 'className' as key if you want to set the class-Attribute. Or use .addClass( class ) or .removeClass( class ).</description>
 <parameters>
-<parameter name="properties" datatype="Map" required="true">
+<parameter name="properties" datatype="Map" usage="required">
 <description>Key/value pairs to set as object properties.</description>
 </parameter>
 </parameters>
@@ -861,10 +861,10 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Set a single property to a value, on all matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="key" datatype="String" required="true">
+<parameter name="key" datatype="String" usage="required">
 <description>The name of the property to set.</description>
 </parameter>
-<parameter name="value" datatype="Object" required="true">
+<parameter name="value" datatype="Object" usage="required">
 <description>The value to set the property to.</description>
 </parameter>
 </parameters>
@@ -887,10 +887,10 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Set a single property to a computed value, on all matched elements.</shortDescription>
 <description>Instead of supplying a string value as described  &lt;a href='#keyvalue'&gt;above&lt;/a&gt;, a function is provided that computes the value.</description>
 <parameters>
-<parameter name="key" datatype="String" required="true">
+<parameter name="key" datatype="String" usage="required">
 <description>The name of the property to set.</description>
 </parameter>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function returning the value to set. Scope: Current element, argument: Index of current element
 &lt;pre&gt;function callback(indexArray) {
   // indexArray[0] == position in the jQuery object
@@ -941,7 +941,7 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 <shortDescription>Insert content before each of the matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="content" datatype="String, Element, jQuery" required="true">
+<parameter name="content" datatype="String, Element, jQuery" usage="required">
 <description>Content to insert before each target.</description>
 </parameter>
 </parameters>
@@ -973,13 +973,13 @@ As of jQuery 1.2 you can now animate properties by em and % (where applicable). 
 
 In most cases, you can define your event handlers as anonymous functions (see first example). In cases where that is not possible, you can pass additional data as the second parameter (and the handler function as the third), see second example.</description>
 <parameters>
-<parameter name="type" datatype="String" required="true">
+<parameter name="type" datatype="String" usage="required">
 <description>An event type</description>
 </parameter>
-<parameter name="data" datatype="Object" required="false">
+<parameter name="data" datatype="Object" usage="optional">
 <description>Additional data passed to the event handler as event.data</description>
 </parameter>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the event on each of the set of matched elements
 
 &lt;pre&gt;function callback(eventObject) {
@@ -1080,7 +1080,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Bind a function to the blur event of each matched element.</shortDescription>
 <description>The blur event fires when an element loses focus either via the pointing device or by tabbing navigation.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the blur event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -1108,7 +1108,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Binds a function to the change event of each matched element.</shortDescription>
 <description>The change event fires when a control loses the input focus and its value has been modified since gaining focus.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the change event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -1159,7 +1159,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Get a set of elements containing all of the unique immediate children of each of the matched set of elements.</shortDescription>
 <description>This set can be filtered with an optional expression that will cause only elements matching the selector to be collected. Also note: while parents() will look at all ancestors, children() will only consider immediate child elements.</description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the child Elements with.</description>
 </parameter>
 </parameters>
@@ -1270,7 +1270,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Binds a function to the click event of each matched element.</shortDescription>
 <description>The click event fires when the pointing device button is clicked over an element. A click is defined as a mousedown and mouseup over the same screen location. The sequence of these events is:&lt;ul&gt;&lt;li&gt;mousedown&lt;/li&gt;&lt;li&gt;mouseup&lt;/li&gt;&lt;li&gt;click&lt;/li&gt;&lt;/ul&gt;</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the click event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -1321,7 +1321,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Clone matched DOM Elements, and all their event handlers, and select the clones.</shortDescription>
 <description>This is useful for moving copies of the elements, and their events, to another location in the DOM.</description>
 <parameters>
-<parameter name="true" datatype="Boolean" required="true">
+<parameter name="true" datatype="Boolean" usage="required">
 <description>Set to true to enable cloning of event handlers.</description>
 </parameter>
 </parameters>
@@ -1361,7 +1361,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Return a style property on the first matched element.</shortDescription>
 <description/>
 <parameters>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>The name of the property to access.</description>
 </parameter>
 </parameters>
@@ -1393,7 +1393,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Set a key/value object as style properties to all matched elements.</shortDescription>
 <description>This is the best way to set several style properties on all matched elements.</description>
 <parameters>
-<parameter name="properties" datatype="Map" required="true">
+<parameter name="properties" datatype="Map" usage="required">
 <description>Key/value pairs to set as style properties.</description>
 </parameter>
 </parameters>
@@ -1456,10 +1456,10 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Set a single style property to a value on all matched elements.</shortDescription>
 <description>If a number is provided, it is automatically converted into a pixel value.</description>
 <parameters>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>The name of the property to set.</description>
 </parameter>
-<parameter name="value" datatype="String or Number" required="true">
+<parameter name="value" datatype="String or Number" usage="required">
 <description>The value to set the property to.</description>
 </parameter>
 </parameters>
@@ -1519,7 +1519,7 @@ $("p").bind("click", {foo: "bar"}, handler)</code>
 <shortDescription>Binds a function to the dblclick event of each matched element.</shortDescription>
 <description>The dblclick event fires when the pointing device button is double clicked over an element</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>The function to bind to the dblclick event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -1576,7 +1576,7 @@ Additionally, the function, when executed, is passed a single argument represent
 
 Returning 'false' from within the each function completely stops the loop through all of the elements (this is like using a 'break' with a normal loop). Returning 'true' from within the loop skips to the next iteration (this is like using a 'continue' with a normal loop). </description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The callback to execute for each matched element.
 
 &lt;pre&gt;function callback(index, domElement) {
@@ -1761,7 +1761,7 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 <shortDescription>Reduce the set of matched elements to a single element.</shortDescription>
 <description>The position of the element in the set of matched elements starts at 0 and goes to length - 1.</description>
 <parameters>
-<parameter name="position" datatype="Number" required="true">
+<parameter name="position" datatype="Number" usage="required">
 <description>The index of the element to select.</description>
 </parameter>
 </parameters>
@@ -1778,7 +1778,7 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 <shortDescription>Reduce the set of matched elements to a single element. </shortDescription>
 <description>The position of the element in the set of matched elements starts at 0 and goes to length - 1.</description>
 <parameters>
-<parameter name="index" datatype="Integer" required="true">
+<parameter name="index" datatype="Integer" usage="required">
 <description>The index of the element in the jQuery object.</description>
 </parameter>
 </parameters>
@@ -1818,7 +1818,7 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 
 &lt;p&gt;If the event handler returns true, it signifies that the event was handled, and the browser raises no errors.&lt;/p&gt;&lt;p&gt;For more information, see: &lt;ul&gt;&lt;li&gt;[http://msdn2.microsoft.com/en-us/library/ms536930.aspx msdn - onerror Event]&lt;/li&gt;&lt;li&gt;[http://developer.mozilla.org/en/docs/DOM:window.onerror Gecko DOM Reference - onerror Event]&lt;/li&gt;&lt;li&gt;[http://developer.mozilla.org/en/docs/DOM:event Gecko DOM Reference - Event object]&lt;/li&gt;&lt;li&gt;[http://en.wikipedia.org/wiki/DOM_Events Wikipedia: DOM Events]&lt;/ul&gt;&lt;/p&gt;</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>An event handler function to bind to the error event.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -1853,10 +1853,10 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 <shortDescription>Fade in all matched elements by adjusting their opacity and firing an optional callback after completion.</shortDescription>
 <description>Only the opacity is adjusted for this animation, meaning that all of the matched elements should already have some form of height and width associated with them.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -1923,10 +1923,10 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 <shortDescription>Fade out all matched elements by adjusting their opacity and firing an optional callback after completion.</shortDescription>
 <description>Only the opacity is adjusted for this animation, meaning that all of the matched elements should already have some form of height and width associated with them.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 &lt;pre&gt;function callback() {
   this; // dom element
@@ -1988,13 +1988,13 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 <shortDescription>Fade the opacity of all matched elements to a specified opacity and firing an optional callback after completion.</shortDescription>
 <description>Only the opacity is adjusted for this animation, meaning that all of the matched elements should already have some form of height and width associated with them.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="opacity" datatype="Number " required="true">
+<parameter name="opacity" datatype="Number " usage="required">
 <description>The opacity to fade to (a number from 0 to 1).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executed once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -2088,7 +2088,7 @@ A 'destructive' operation is any operation that changes the set of matched jQuer
 
 Provide a comma-separated list of expressions to apply multiple filters at once.</description>
 <parameters>
-<parameter name="expr" datatype="Expression" required="true">
+<parameter name="expr" datatype="Expression" usage="required">
 <description>An expression to pass into the filter</description>
 </parameter>
 </parameters>
@@ -2129,7 +2129,7 @@ Provide a comma-separated list of expressions to apply multiple filters at once.
 <shortDescription>Removes all elements from the set of matched elements that does not match the specified function. </shortDescription>
 <description>The function is called with a context equal to the current element (just like &lt;a href='Core/each'&gt;$.each&lt;/a&gt;). If the function returns false, then the element is removed - anything else and the element is kept.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to pass into the filter
 
 &lt;pre&gt;function callback(indexInJQueryObject) {
@@ -2178,7 +2178,7 @@ Provide a comma-separated list of expressions to apply multiple filters at once.
 <shortDescription>Searches for all elements that match the specified &lt;a href='Selectors'&gt;expression&lt;/a&gt;. This method is a good way to find additional descendant elements with which to process.</shortDescription>
 <description>All searching is done using a &lt;a href='Selectors'&gt;jQuery expression&lt;/a&gt;. The expression can be written using CSS 1-3 Selector syntax. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="true">
+<parameter name="expr" datatype="String" usage="required">
 <description>An expression to search with.</description>
 </parameter>
 </parameters>
@@ -2237,7 +2237,7 @@ Provide a comma-separated list of expressions to apply multiple filters at once.
 <shortDescription>Binds a function to the focus event of each matched element.</shortDescription>
 <description>The focus event fires when an element receives focus either via the pointing device or by tab navigation.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the focus event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -2293,7 +2293,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Access a single matched DOM element at a specified index in the matched set.</shortDescription>
 <description>This allows you to extract the actual DOM element and operate on it directly without necessarily using jQuery functionality on it. This function called as $(this).get(0) is the equivalent of using square bracket notation on the jQuery object itself like $(this)[0].</description>
 <parameters>
-<parameter name="index" datatype="Number" required="true">
+<parameter name="index" datatype="Number" usage="required">
 <description>Access the element in the Nth position.</description>
 </parameter>
 </parameters>
@@ -2324,7 +2324,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Checks the current selection against a class and returns true, if at least one element of the selection has the given class.</shortDescription>
 <description>This is an alternative to is("." + class).</description>
 <parameters>
-<parameter name="class" datatype="String" required="true">
+<parameter name="class" datatype="String" usage="required">
 <description>The class to match.</description>
 </parameter>
 </parameters>
@@ -2404,7 +2404,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Set the CSS height of every matched element.</shortDescription>
 <description>If no explicit unit was specified (like 'em' or '%') then "px" is concatenated to the value.</description>
 <parameters>
-<parameter name="val" datatype="String or Number" required="true">
+<parameter name="val" datatype="String or Number" usage="required">
 <description>Set the CSS 'height' property to the specified value.</description>
 </parameter>
 </parameters>
@@ -2458,10 +2458,10 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Hide all matched elements using a graceful animation and firing an optional callback after completion.</shortDescription>
 <description>The height, width, and opacity of each of the matched elements are changed dynamically according to the specified speed.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -2538,7 +2538,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Simulates hovering (moving the mouse on, and off, an object). This is a custom method which provides an 'in' to a frequent task.</shortDescription>
 <description>Whenever the mouse cursor is moved over a matched element, the first specified function is fired. Whenever the mouse moves off of the element, the second specified function fires. Additionally, checks are in place to see if the mouse is still within the specified element itself (for example, an image inside of a div), and if it is, it will continue to 'hover', and not move out (a common error in using a mouseout event handler).</description>
 <parameters>
-<parameter name="over" datatype="Function" required="true">
+<parameter name="over" datatype="Function" usage="required">
 <description>The function to fire when the mouse is moved over a matched element.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -2546,7 +2546,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 }
 &lt;/pre&gt;</description>
 </parameter>
-<parameter name="out" datatype="Function" required="true">
+<parameter name="out" datatype="Function" usage="required">
 <description>The function to fire when the mouse is moved off of a matched element.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -2669,7 +2669,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Set the html contents of every matched element. This property is not available on XML documents (although it will work for XHTML documents).</shortDescription>
 <description/>
 <parameters>
-<parameter name="val" datatype="string" required="true">
+<parameter name="val" datatype="string" usage="required">
 <description>Set the html contents to the specified value.</description>
 </parameter>
 </parameters>
@@ -2709,7 +2709,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Set the html contents of every matched element. This property is not available on XML documents (although it will work for XHTML documents).</shortDescription>
 <description/>
 <parameters>
-<parameter name="val" datatype="string" required="true">
+<parameter name="val" datatype="string" usage="required">
 <description>Set the html contents to the specified value.</description>
 </parameter>
 </parameters>
@@ -2749,7 +2749,7 @@ It is useful if you need to operate on the DOM elements themselves instead of us
 <shortDescription>Searches every matched element for the object and returns the index of the element, if found, starting with zero.</shortDescription>
 <description>Returns -1 if the object wasn't found.</description>
 <parameters>
-<parameter name="subject" datatype="Element " required="true">
+<parameter name="subject" datatype="Element " usage="required">
 <description>Object to search for.</description>
 </parameter>
 </parameters>
@@ -2801,7 +2801,7 @@ mainNavLinks.click(function(){alert(mainNavLinks.index(this)0;});</code>
 <shortDescription>Insert all of the matched elements after another, specified, set of elements.</shortDescription>
 <description>This operation is, essentially, the reverse of doing a regular $(A).after(B), in that instead of inserting B after A, you're inserting A after B.</description>
 <parameters>
-<parameter name="content" datatype="String" required="true">
+<parameter name="content" datatype="String" usage="required">
 <description>Content after which the selected element(s) is inserted.</description>
 </parameter>
 </parameters>
@@ -2819,7 +2819,7 @@ mainNavLinks.click(function(){alert(mainNavLinks.index(this)0;});</code>
 <shortDescription>Insert all of the matched elements before another, specified, set of elements.</shortDescription>
 <description>This operation is, essentially, the reverse of doing a regular $(A).before(B), in that instead of inserting B before A, you're inserting A before B.</description>
 <parameters>
-<parameter name="content" datatype="String" required="true">
+<parameter name="content" datatype="String" usage="required">
 <description>Content after which the selected element(s) is inserted.</description>
 </parameter>
 </parameters>
@@ -2840,7 +2840,7 @@ mainNavLinks.click(function(){alert(mainNavLinks.index(this)0;});</code>
 
 &lt;a href='Traversing/filter'&gt;filter&lt;/a&gt; is used internally, therefore all rules that apply there apply here, as well. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="true">
+<parameter name="expr" datatype="String" usage="required">
 <description>The expression with which to filter</description>
 </parameter>
 </parameters>
@@ -2925,13 +2925,13 @@ $.ajax() takes one argument, an object of key/value pairs, that are used to init
 
 As of jQuery 1.2, you can load JSON data located on another domain if you specify a [http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp/ JSONP] callback, which can be done like so: "myurl?callback=?". jQuery automatically replaces the ? with the correct method name to call, calling your specified callback. Or, if you set the dataType to "jsonp" a callback will be automatically added to your Ajax request.</description>
 <parameters>
-<parameter name="options" datatype="Options" required="true">
+<parameter name="options" datatype="Options" usage="required">
 <description>A set of key/value pairs that configure the Ajax request. All options are optional. A default can be set for any option with &lt;a href='Ajax/jQuery.ajaxSetup'&gt;$.ajaxSetup&lt;/a&gt;().</description>
 <properties>
-<property name="async" datatype="Boolean">
+<property name="async" datatype="Boolean" default="true">
 <description>By default, all requests are sent asynchronous (e.g. this is set to true by default). If you need synchronous requests, set this option to false. Note that synchronous requests may temporarily lock the browser, disabling any actions while the request is active.</description>
 </property>
-<property name="beforeSend" datatype="Function">
+<property name="beforeSend" datatype="Function" default="">
 <description>A pre-callback to modify the XMLHttpRequest object before it is sent. Use this to set custom headers etc. The XMLHttpRequest is passed as the only argument. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.
 
 &lt;pre&gt;function (XMLHttpRequest) {
@@ -2939,23 +2939,23 @@ As of jQuery 1.2, you can load JSON data located on another domain if you specif
 }
 &lt;/pre&gt;</description>
 </property>
-<property name="cache" datatype="Boolean">
+<property name="cache" datatype="Boolean" default="true">
 <description>Added in jQuery 1.2, if set to false it will force the pages that you request to not be cached by the browser.</description>
 </property>
-<property name="complete" datatype="Function">
+<property name="complete" datatype="Function" default="">
 <description>A function to be called when the request finishes (after success and error callbacks are executed). The function gets passed two arguments: The XMLHttpRequest object and a string describing the type of success of the request. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.
 &lt;pre&gt;function (XMLHttpRequest, textStatus) {
   this; // the options for this ajax request
 }
 &lt;/pre&gt;</description>
 </property>
-<property name="contentType" datatype="String">
+<property name="contentType" datatype="String" default="&quot;application/x-www-form-urlencoded&quot;">
 <description>When sending data to the server, use this content-type. Default is "application/x-www-form-urlencoded", which is fine for most cases.</description>
 </property>
-<property name="data" datatype="Object, String">
+<property name="data" datatype="Object, String" default="">
 <description>Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same key i.e. {foo:["bar1", "bar2"]} becomes '&amp;foo=bar1&amp;foo=bar2'.</description>
 </property>
-<property name="dataType" datatype="String">
+<property name="dataType" datatype="String" default="Intelligent Guess (xml or html)">
 <description>The type of data that you're expecting back from the server. If none is specified, jQuery will intelligently pass either responseXML or responseText to your success callback, based on the MIME type of the response. The available types (and the result passed as the first argument to your success callback) are:
 *"xml": Returns a XML document that can be processed via jQuery.
 *"html": Returns HTML as plain text; included script tags are evaluated.
@@ -2965,7 +2965,7 @@ As of jQuery 1.2, you can load JSON data located on another domain if you specif
 *"jsonp": Loads in a JSON block using [http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp/ JSONP]. Will add an extra "?callback=?" to the end of your URL to specify the callback. (Added in jQuery 1.2)
 *"text": A plain text string.</description>
 </property>
-<property name="error" datatype="Function">
+<property name="error" datatype="Function" default="">
 <description>A function to be called if the request fails. The function gets passed three arguments: The XMLHttpRequest object, a string describing the type of error that occurred and an optional exception object, if one occurred. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.
 
 &lt;pre&gt;function (XMLHttpRequest, textStatus, errorThrown) {
@@ -2975,19 +2975,19 @@ As of jQuery 1.2, you can load JSON data located on another domain if you specif
 }
 &lt;/pre&gt;</description>
 </property>
-<property name="global" datatype="Boolean">
+<property name="global" datatype="Boolean" default="true">
 <description>Whether to trigger global AJAX event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various &lt;a href='Ajax_Events'&gt;Ajax Events&lt;/a&gt;.</description>
 </property>
-<property name="ifModified" datatype="Boolean">
+<property name="ifModified" datatype="Boolean" default="false">
 <description>Allow the request to be successful only if the response has changed since the last request. This is done by checking the Last-Modified header. Default value is false, ignoring the header.</description>
 </property>
-<property name="jsonp" datatype="String">
+<property name="jsonp" datatype="String" default="">
 <description>Override the callback function name in a jsonp request.  This value will be used instead of 'callback' in the 'callback=?' part of the query string in the url for a GET or the data for a POST.  So {jsonp:'onJsonPLoad'} would result in 'onJsonPLoad=?' passed to the server.</description>
 </property>
-<property name="processData" datatype="Boolean">
+<property name="processData" datatype="Boolean" default="true">
 <description>By default, data passed in to the data option as an object (technically, anything other than a string) will be processed and transformed into a query string, fitting to the default content-type "application/x-www-form-urlencoded". If you want to send DOMDocuments, or other non-processed data, set this option to false.</description>
 </property>
-<property name="success" datatype="Function">
+<property name="success" datatype="Function" default="">
 <description>A function to be called if the request succeeds. The function gets passed two arguments: The data returned from the server, formatted according to the 'dataType' parameter, and a string describing the status. This is an &lt;a href='Ajax_Events'&gt;Ajax Event&lt;/a&gt;.
 &lt;pre&gt;function (data, textStatus) {
   // data could be xmlDoc, jsonObj, html, text, etc...
@@ -2995,13 +2995,13 @@ As of jQuery 1.2, you can load JSON data located on another domain if you specif
 }
 &lt;/pre&gt;</description>
 </property>
-<property name="timeout" datatype="Number">
+<property name="timeout" datatype="Number" default="">
 <description>Set a local timeout in ms for the request. This will override the global timeout, if one is set via &lt;a href='Ajax/jQuery.ajaxSetup'&gt;$.ajaxSetup&lt;/a&gt;. For example, you could use this property to give a single request a longer timeout than all other requests that you've set to time out in one second. See &lt;a href='Ajax/jQuery.ajaxSetup'&gt;$.ajaxSetup&lt;/a&gt;() for global timeouts.</description>
 </property>
-<property name="type" datatype="String">
+<property name="type" datatype="String" default="&quot;GET&quot;">
 <description>The type of request to make ("POST" or "GET"), default is "GET". Note: Other HTTP request methods, such as PUT and DELETE, can also be used here, but they are not supported by all browsers.</description>
 </property>
-<property name="url" datatype="String">
+<property name="url" datatype="String" default="The current page">
 <description>The URL to request.</description>
 </property>
 </properties>
@@ -3065,7 +3065,7 @@ option to false, the automatic conversion of data to strings is prevented.</desc
 <shortDescription>Setup global settings for AJAX requests.</shortDescription>
 <description>See &lt;a href='Ajax/jQuery.ajax'&gt;$.ajax&lt;/a&gt; for a description of all available options.</description>
 <parameters>
-<parameter name="options" datatype="Options" required="true">
+<parameter name="options" datatype="Options" usage="required">
 <description>A set of key/value pairs that configure the default Ajax request. All options are optional.</description>
 </parameter>
 </parameters>
@@ -3087,7 +3087,7 @@ option to false, the automatic conversion of data to strings is prevented.</desc
 <shortDescription>Returns a unique ID for the element.</shortDescription>
 <description>Typically this function will only be used internally.  It is called automatically when necessary when using the other data() functionality.</description>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>DOM element of interest.</description>
 </parameter>
 </parameters>
@@ -3117,10 +3117,10 @@ option to false, the automatic conversion of data to strings is prevented.</desc
 <shortDescription>Returns value at named data store for the element.</shortDescription>
 <description/>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>DOM element of interest.</description>
 </parameter>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>Name of the data stored.</description>
 </parameter>
 </parameters>
@@ -3184,13 +3184,13 @@ To avoid conflicts in plugins, it is usually effective to store one object using
   obj[...] = ...
 &lt;/code&gt;</description>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>DOM element of interest.</description>
 </parameter>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>Name of the data to store.</description>
 </parameter>
-<parameter name="value" datatype="Any" required="true">
+<parameter name="value" datatype="Any" usage="required">
 <description>Value to be stored.</description>
 </parameter>
 </parameters>
@@ -3226,10 +3226,10 @@ The callback has two arguments:the key (objects) or index (arrays) as the first,
 
 If you wish to break the each() loop at a particular iteration you can do so by making your function return false. Other return values are ignored.</description>
 <parameters>
-<parameter name="object" datatype="Object" required="true">
+<parameter name="object" datatype="Object" usage="required">
 <description>The object, or array, to iterate over.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function that will be executed on every object.
 &lt;pre&gt;function callback(indexInArray, valueOfElement) {
   var booleanKeepGoing;
@@ -3290,7 +3290,7 @@ If you wish to break the each() loop at a particular iteration you can do so by 
 <shortDescription>Extends the jQuery object itself.</shortDescription>
 <description>Can be used to add functions into the jQuery namespace. See &lt;a href='Core/jQuery.fn.extend'&gt;jQuery.fn.extend&lt;/a&gt; for more information on using this method to add &lt;a href='Plugins/Authoring'&gt;Plugins&lt;/a&gt;.</description>
 <parameters>
-<parameter name="object" datatype="Object" required="true">
+<parameter name="object" datatype="Object" usage="required">
 <description>The object that will be merged into the jQuery object.</description>
 </parameter>
 </parameters>
@@ -3309,13 +3309,13 @@ If you wish to break the each() loop at a particular iteration you can do so by 
 <shortDescription>Extend one object with one or more others, returning the original, modified, object.</shortDescription>
 <description>This is a great utility for simple inheritance.</description>
 <parameters>
-<parameter name="target" datatype="Object" required="true">
+<parameter name="target" datatype="Object" usage="required">
 <description>The object to extend.</description>
 </parameter>
-<parameter name="object1" datatype="Object" required="true">
+<parameter name="object1" datatype="Object" usage="required">
 <description>The object that will be merged into the first.</description>
 </parameter>
-<parameter name="objectN" datatype="Object" required="false">
+<parameter name="objectN" datatype="Object" usage="optional">
 <description>More objects to merge into the first.</description>
 </parameter>
 </parameters>
@@ -3340,7 +3340,7 @@ var settings = $.extend(empty, defaults, options);</code>
 <shortDescription>Extends the jQuery element set to provide new methods (used to make a typical jQuery plugin).</shortDescription>
 <description>Can be used to add functions into the to add &lt;a href='Plugins/Authoring'&gt;plugin methods (plugins)&lt;/a&gt;. </description>
 <parameters>
-<parameter name="object" datatype="Object" required="true">
+<parameter name="object" datatype="Object" usage="required">
 <description>The object that will be merged into the jQuery object.</description>
 </parameter>
 </parameters>
@@ -3363,13 +3363,13 @@ var settings = $.extend(empty, defaults, options);</code>
 <shortDescription>Load a remote page using an HTTP GET request.</shortDescription>
 <description>This is an easy way to send a simple GET request to a server without having to use the more complex $.ajax function. It allows a single callback function to be specified that will be executed when the request is complete (and only if the response has a successful response code). If you need to have both error and success callbacks, you may want to use $.ajax.</description>
 <parameters>
-<parameter name="url" datatype="String" required="true">
+<parameter name="url" datatype="String" usage="required">
 <description>The URL of the page to load.</description>
 </parameter>
-<parameter name="data" datatype="Map" required="false">
+<parameter name="data" datatype="Map" usage="optional">
 <description>Key/value pairs that will be sent to the server.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the data is loaded successfully.
 
 &lt;pre&gt;function (data, textStatus) {
@@ -3411,13 +3411,13 @@ var settings = $.extend(empty, defaults, options);</code>
 
 Note: Keep in mind, that lines after this function will be executed before callback.</description>
 <parameters>
-<parameter name="url" datatype="String" required="true">
+<parameter name="url" datatype="String" usage="required">
 <description>The URL of the page to load.</description>
 </parameter>
-<parameter name="data" datatype="Map" required="false">
+<parameter name="data" datatype="Map" usage="optional">
 <description>Key/value pairs that will be sent to the server.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the data is loaded successfully.
 
 &lt;pre&gt;function (data, textStatus) {
@@ -3488,10 +3488,10 @@ function dates(datos)
 
 Warning: Safari 2 and older is unable to evaluate scripts in a global context synchronously. If you load functions via getScript, make sure to call them after a delay.</description>
 <parameters>
-<parameter name="url" datatype="String" required="true">
+<parameter name="url" datatype="String" usage="required">
 <description>The URL of the page to load.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the data is loaded successfully.
 &lt;pre&gt;function (data, textStatus) {
   // data should be javascript
@@ -3537,10 +3537,10 @@ Warning: Safari 2 and older is unable to evaluate scripts in a global context sy
 <shortDescription>Filter items out of an array, by using a filter function.</shortDescription>
 <description>The specified function will be passed two arguments: The current array item and the index of the item in the array. The function must return 'true' to keep the item in the array, false to remove it.</description>
 <parameters>
-<parameter name="array" datatype="Array" required="true">
+<parameter name="array" datatype="Array" usage="required">
 <description>The Array to find items in.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to process each item against.  The first argument to the function is the list item, and the second argument is the list index.  The function should return a Boolean value.  Optionally, this argument may be a string rather than a function.  If the argument is a string, it is treated as a short "lambda-form" function, with "a" representing the list item and "i" representing the index.  For example, "a &gt; 0" may be passed instead of "function(a){ return a &gt; 0; }".
 
 &lt;pre&gt;function callback(elementOfArray, indexInArray) {
@@ -3552,7 +3552,7 @@ Warning: Safari 2 and older is unable to evaluate scripts in a global context sy
 }
 &lt;/pre&gt;</description>
 </parameter>
-<parameter name="invert" datatype="Boolean" required="false">
+<parameter name="invert" datatype="Boolean" usage="optional">
 <description>If "invert" is false, or not provided, then the function returns an array consisting of all elements for which "callback" returns true.  If "invert" is true, then the function returns an array consisting of all elements for which "callback" returns false.</description>
 </parameter>
 </parameters>
@@ -3600,10 +3600,10 @@ Warning: Safari 2 and older is unable to evaluate scripts in a global context sy
 <shortDescription>Determine the index of the first parameter in the Array (-1 if not found).</shortDescription>
 <description/>
 <parameters>
-<parameter name="value" datatype="Any" required="true">
+<parameter name="value" datatype="Any" usage="required">
 <description>Value to see if it exists in the array.</description>
 </parameter>
-<parameter name="array" datatype="Array" required="true">
+<parameter name="array" datatype="Array" usage="required">
 <description>Array to look through for the value.</description>
 </parameter>
 </parameters>
@@ -3635,7 +3635,7 @@ Warning: Safari 2 and older is unable to evaluate scripts in a global context sy
 <shortDescription>Determine if the parameter passed is a function.</shortDescription>
 <description/>
 <parameters>
-<parameter name="obj" datatype="Object" required="true">
+<parameter name="obj" datatype="Object" usage="required">
 <description>Object to test whether or not it is a function.</description>
 </parameter>
 </parameters>
@@ -3684,7 +3684,7 @@ Warning: Safari 2 and older is unable to evaluate scripts in a global context sy
 <shortDescription>Turns an array-like object into a true array.</shortDescription>
 <description>Array-like objects have a length property and its properties are numbered from 0 to length - 1.  Typically it will be unnecessary to use this function if you are using jQuery which uses this function internally.</description>
 <parameters>
-<parameter name="obj" datatype="Object" required="true">
+<parameter name="obj" datatype="Object" usage="required">
 <description>Array-like object to turn in to an actual Array.</description>
 </parameter>
 </parameters>
@@ -3715,10 +3715,10 @@ Warning: Safari 2 and older is unable to evaluate scripts in a global context sy
 
 The function can then return the translated value, 'null' (to remove the item), or an array of values - which will be flattened into the full array. </description>
 <parameters>
-<parameter name="array" datatype="Array" required="true">
+<parameter name="array" datatype="Array" usage="required">
 <description>The Array to translate.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to process each item against.  The argument to the function is the list item. The function can return any value.  Optionally, this argument may be a string rather than a function. If the argument is a string, it is treated as a short "lambda-form" function, with "a" representing the list item. For example, "a * a" may be passed instead of "function(a){ return a * a; }". 
 
 &lt;pre&gt;function callback(elementOfArray, indexInArray) {
@@ -3822,7 +3822,7 @@ $("content").style.display = 'none';</code>
 <shortDescription>Revert control of both the $ and jQuery variables to their original owners. '''Use with discretion.'''</shortDescription>
 <description>This is a more-extreme version of the simple &lt;a href='Core/jQuery.noConflict'&gt;noConflict&lt;/a&gt; method, as this one will completely undo what jQuery has introduced. This is to be used in an extreme case where you'd like to embed jQuery into a high-conflict environment. '''NOTE:''' It's very likely that plugins won't work after this particular method has been called.</description>
 <parameters>
-<parameter name="extreme" datatype="Boolean" required="true">
+<parameter name="extreme" datatype="Boolean" usage="required">
 <description>Set to true to enable the extreme rollback of jQuery and it's variables.</description>
 </parameter>
 </parameters>
@@ -3839,7 +3839,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Serializes an array of form elements or an object (core of &lt;a href='Ajax/serialize'&gt;.serialize()&lt;/a&gt; method).</shortDescription>
 <description/>
 <parameters>
-<parameter name="obj" datatype="Array&lt;Elements&gt;, jQuery, Object" required="true">
+<parameter name="obj" datatype="Array&lt;Elements&gt;, jQuery, Object" usage="required">
 <description>An Array or jQuery object is serialized by name/value pairs.  An object by key/value pairs.</description>
 </parameter>
 </parameters>
@@ -3862,13 +3862,13 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Load a remote page using an HTTP POST request.</shortDescription>
 <description>This is an easy way to send a simple POST request to a server without having to use the more complex $.ajax function. It allows a single callback function to be specified that will be executed when the request is complete (and only if the response has a successful response code). If you need to have both error and success callbacks, you may want to use $.ajax.</description>
 <parameters>
-<parameter name="url" datatype="String" required="true">
+<parameter name="url" datatype="String" usage="required">
 <description>The URL of the page to load.</description>
 </parameter>
-<parameter name="data" datatype="Map" required="false">
+<parameter name="data" datatype="Map" usage="optional">
 <description>Key/value pairs that will be sent to the server.</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the data is loaded successfully.
 
 &lt;pre&gt;function (data, textStatus) {
@@ -3907,7 +3907,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Remove the expando attribute that allows data storage on an element.</shortDescription>
 <description>This is the complement function to jQuery.data(elem) which is called as necessary by jQuery.data(elem, name, value).</description>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>Element to delete the data store from.</description>
 </parameter>
 </parameters>
@@ -3944,10 +3944,10 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Removes just this one named data store.</shortDescription>
 <description>This is the complement function to jQuery.data(elem, name, value).</description>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>Element to delete the named data store property from.</description>
 </parameter>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>The name of the data store property to remove.</description>
 </parameter>
 </parameters>
@@ -3983,7 +3983,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Remove the whitespace from the beginning and end of a string.</shortDescription>
 <description>Uses a regular expression to remove whitespace from the given string.</description>
 <parameters>
-<parameter name="str" datatype="String" required="true">
+<parameter name="str" datatype="String" usage="required">
 <description>The string to trim.</description>
 </parameter>
 </parameters>
@@ -4014,7 +4014,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Remove all duplicate elements from an array of elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="array" datatype="Array" required="true">
+<parameter name="array" datatype="Array" usage="required">
 <description>The Array to translate.</description>
 </parameter>
 </parameters>
@@ -4062,7 +4062,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Bind a function to the keydown event of each matched element.</shortDescription>
 <description>The keydown event fires when a key on the keyboard is pressed.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the keydown event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -4099,7 +4099,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Binds a function to the keypress event of each matched element.</shortDescription>
 <description>The keypress event fires when a key on the keyboard is "clicked". A keypress is defined as a keydown and keyup on the same key. The sequence of these events is: &lt;ul&gt;&lt;li&gt;keydown&lt;/li&gt;&lt;li&gt;keyup&lt;/li&gt;&lt;li&gt;keypress&lt;/li&gt;&lt;/ul&gt;</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the keypress event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -4151,7 +4151,7 @@ dom.query = jQuery.noConflict(true);</code>
 <shortDescription>Bind a function to the keyup event of each matched element.</shortDescription>
 <description>The keyup event fires when a key on the keyboard is released.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the keyup event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -4178,13 +4178,13 @@ dom.query = jQuery.noConflict(true);</code>
 
 In jQuery 1.2 you can now specify a jQuery selector in the URL. Doing so will filter the incoming HTML document, only injecting the elements that match the selector. The syntax looks something like "url #some &gt; selector". See the examples for more information.</description>
 <parameters>
-<parameter name="url" datatype="String" required="true">
+<parameter name="url" datatype="String" usage="required">
 <description>The URL of the HTML page to load.</description>
 </parameter>
-<parameter name="data" datatype="Map" required="false">
+<parameter name="data" datatype="Map" usage="optional">
 <description>Key/value pairs that will be sent to the server.</description>
 </parameter>
-<parameter name="callback" datatype="Callback" required="true">
+<parameter name="callback" datatype="Callback" usage="required">
 <description>The function called when the ajax request is complete (not necessarily success).
 
 &lt;pre&gt;function (responseText, textStatus, XMLHttpRequest) {
@@ -4218,7 +4218,7 @@ In jQuery 1.2 you can now specify a jQuery selector in the URL. Doing so will fi
 <shortDescription>Binds a function to the load event of each matched element.</shortDescription>
 <description>When bound to the window element, the event fires when the user agent finishes loading all content within a document, including window, frames, objects and images. For elements, it fires when the target element and all of its content has finished loading.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the load event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -4244,7 +4244,7 @@ In jQuery 1.2 you can now specify a jQuery selector in the URL. Doing so will fi
 
 This is provided as a convenience method for using &lt;a href='Utilities/jQuery.map'&gt;$.map()&lt;/a&gt;.</description>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to execute on each element in the set.
 &lt;pre&gt;function callback(index, domElement) {
   var replacement;
@@ -4329,7 +4329,7 @@ This is provided as a convenience method for using &lt;a href='Utilities/jQuery.
 <shortDescription>Binds a function to the mousedown event of each matched element.</shortDescription>
 <description>The mousedown event fires when the pointing device button is pressed over an element.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the mousedown event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -4345,7 +4345,7 @@ This is provided as a convenience method for using &lt;a href='Utilities/jQuery.
 <shortDescription>Bind a function to the mousemove event of each matched element.</shortDescription>
 <description>The mousemove event fires when the pointing device is moved while it is over an element. The event handler is passed one variable - the event object. Its .clientX and .clientY properties represent the coordinates of the mouse.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the mousmove event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -4388,7 +4388,7 @@ This is provided as a convenience method for using &lt;a href='Utilities/jQuery.
 <shortDescription>Bind a function to the mouseout event of each matched element.</shortDescription>
 <description>The mouseout event fires when the pointing device is moved away from an element.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the mouseout event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -4403,7 +4403,7 @@ This is provided as a convenience method for using &lt;a href='Utilities/jQuery.
 <shortDescription>Bind a function to the mouseover event of each matched element.</shortDescription>
 <description>The mouseout event fires when the pointing device is moved onto an element.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the mouseover event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -4418,7 +4418,7 @@ This is provided as a convenience method for using &lt;a href='Utilities/jQuery.
 <shortDescription>Bind a function to the mouseup event of each matched element.</shortDescription>
 <description>The mouseup event fires when the pointing device button is released over an element.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the mouseup event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -4436,7 +4436,7 @@ This is provided as a convenience method for using &lt;a href='Utilities/jQuery.
 
 You may provide an optional expression to filter the returned set. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression with which to filter the returned set.</description>
 </parameter>
 </parameters>
@@ -4469,7 +4469,7 @@ You may provide an optional expression to filter the returned set. </description
 <shortDescription>Find all sibling elements after the current element.</shortDescription>
 <description>Use an optional expression to filter the matched set. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the next Elements with.</description>
 </parameter>
 </parameters>
@@ -4516,7 +4516,7 @@ You may provide an optional expression to filter the returned set. </description
 <shortDescription>Removes elements matching the specified expression from the set of matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="expr" datatype="String, DOMElement, Array&lt;DOMElement&gt;" required="true">
+<parameter name="expr" datatype="String, DOMElement, Array&lt;DOMElement&gt;" usage="required">
 <description>An expression with which to remove matching elements, an element to remove from the set or a set of elements to remove from the jQuery set of matched elements.</description>
 </parameter>
 </parameters>
@@ -4610,13 +4610,13 @@ p.html( "left: " + offset.left + ", top: " + offset.top );</code>
 <shortDescription>Binds a handler to a particular event to be executed &lt;i&gt;once&lt;/i&gt; for each matched element.</shortDescription>
 <description>&lt;p&gt;The handler is executed only once for each element. Otherwise, the same rules as described in &lt;a href='Events/bind'&gt;bind&lt;/a&gt;() apply. The event handler is passed an event object that you can use to prevent default behaviour. To stop both default action and event bubbling, your handler should return false.&lt;/p&gt;&lt;p&gt;In most cases, you can define your event handlers as anonymous functions (see first example). In cases where that is not possible, you can pass additional data as the second paramter (and the handler function as the third), see second example.&lt;/p&gt;</description>
 <parameters>
-<parameter name="type" datatype="String" required="true">
+<parameter name="type" datatype="String" usage="required">
 <description>An event type</description>
 </parameter>
-<parameter name="data" datatype="Object" required="false">
+<parameter name="data" datatype="Object" usage="optional">
 <description>Additional data passed to the event handler as event.data</description>
 </parameter>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the specified event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -4666,7 +4666,7 @@ p.html( "left: " + offset.left + ", top: " + offset.top );</code>
 <shortDescription>Get a set of elements containing the unique parents of the matched set of elements.</shortDescription>
 <description>You may use an optional expression to filter the set of parent elements that will match. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the parents with.</description>
 </parameter>
 </parameters>
@@ -4722,7 +4722,7 @@ p.html( "left: " + offset.left + ", top: " + offset.top );</code>
 The matched elements can be filtered with an optional expression. </shortDescription>
 <description/>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the ancestors with</description>
 </parameter>
 </parameters>
@@ -4795,7 +4795,7 @@ The matched elements can be filtered with an optional expression. </shortDescrip
 <shortDescription>Prepend content to the inside of every matched element.</shortDescription>
 <description>This operation is the best way to insert elements inside, at the beginning, of all matched elements.</description>
 <parameters>
-<parameter name="content" datatype="String, Element, jQuery" required="true">
+<parameter name="content" datatype="String, Element, jQuery" usage="required">
 <description>Content to prepend to the target.</description>
 </parameter>
 </parameters>
@@ -4828,7 +4828,7 @@ The matched elements can be filtered with an optional expression. </shortDescrip
 <shortDescription>Prepend all of the matched elements to another, specified, set of elements.</shortDescription>
 <description>This operation is, essentially, the reverse of doing a regular $(A).prepend(B), in that instead of prepending B to A, you're prepending A to B.</description>
 <parameters>
-<parameter name="content" datatype="String" required="true">
+<parameter name="content" datatype="String" usage="required">
 <description>target to which the content will be prepended.</description>
 </parameter>
 </parameters>
@@ -4850,7 +4850,7 @@ The matched elements can be filtered with an optional expression. </shortDescrip
 
 Only the immediately previous sibling is returned, not all previous siblings. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the previous Elements with.</description>
 </parameter>
 </parameters>
@@ -4901,7 +4901,7 @@ Only the immediately previous sibling is returned, not all previous siblings. </
 <shortDescription>Find all sibling elements before the current element.</shortDescription>
 <description>Use an optional expression to filter the matched set. </description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the previous Elements with.</description>
 </parameter>
 </parameters>
@@ -4967,7 +4967,7 @@ Only the immediately previous sibling is returned, not all previous siblings. </
 <shortDescription>Adds a new function, to be executed, onto the end of the queue of all matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="callback" datatype="Function" required="true">
+<parameter name="callback" datatype="Function" usage="required">
 <description>The function to add to the queue.
 
 &lt;pre&gt;function callback() {
@@ -5014,7 +5014,7 @@ Only the immediately previous sibling is returned, not all previous siblings. </
 <shortDescription>Replaces the queue of all matched element with this new queue (the array of functions).</shortDescription>
 <description/>
 <parameters>
-<parameter name="queue" datatype="Array&lt;Function&gt;" required="true">
+<parameter name="queue" datatype="Array&lt;Function&gt;" usage="required">
 <description>The queue to replace all the queues with.  The functions have the same parameters and this value as queue(callback).</description>
 </parameter>
 </parameters>
@@ -5059,7 +5059,7 @@ Only the immediately previous sibling is returned, not all previous siblings. </
 <shortDescription>Binds a function to be executed whenever the DOM is ready to be traversed and manipulated.</shortDescription>
 <description>&lt;p&gt;This is probably the most important function included in the event module, as it can greatly improve the response times of your web applications.&lt;/p&gt;&lt;p&gt;In a nutshell, this is a solid replacement for using window.onload, and attaching a function to that. By using this method, your bound function will be called the instant the DOM is ready to be read and manipulated, which is when what 99.99% of all JavaScript code needs to run.&lt;/p&gt;&lt;p&gt;There is one argument passed to the ready event handler: A reference to the jQuery function. You can name that argument whatever you like, and can therefore stick with the $ alias without risk of naming collisions.&lt;/p&gt;&lt;p&gt;Please ensure you have no code in your &lt;body&gt; onload event handler, otherwise $(document).ready() may not fire.&lt;/p&gt;&lt;p&gt;You can have as many $(document).ready events on your page as you like. The functions are then executed in the order they were added.&lt;/p&gt;</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>The function to be executed when the DOM is ready.
 
 &lt;pre&gt;function callback(jQueryReference) {
@@ -5115,7 +5115,7 @@ to avoid losing the event handlers.
 
 Can be filtered with an optional expression.</description>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>A jQuery expression to filter the set of elements to be removed.</description>
 </parameter>
 </parameters>
@@ -5157,7 +5157,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Remove an attribute from each of the matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="name" datatype="String" required="true">
+<parameter name="name" datatype="String" usage="required">
 <description>The name of the property to remove.</description>
 </parameter>
 </parameters>
@@ -5182,7 +5182,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Removes all or the specified class(es) from the set of matched elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="class" datatype="String ''(optional)''" required="true">
+<parameter name="class" datatype="String ''(optional)''" usage="required">
 <description>One or more CSS classes to remove from the elements, these are separated by spaces.</description>
 </parameter>
 </parameters>
@@ -5241,7 +5241,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Replaces the elements matched by the specified selector with the matched elements.</shortDescription>
 <description>This function is the complement to replaceWith() which does the same task with the parameters reversed.</description>
 <parameters>
-<parameter name="selector" datatype="Selector" required="true">
+<parameter name="selector" datatype="Selector" usage="required">
 <description>The elements to find and replace the matched elements with.</description>
 </parameter>
 </parameters>
@@ -5261,7 +5261,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Replaces all matched elements with the specified HTML or DOM elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="content" datatype="String, Element, jQuery" required="true">
+<parameter name="content" datatype="String, Element, jQuery" usage="required">
 <description>Content to replace the matched elements with.</description>
 </parameter>
 </parameters>
@@ -5328,7 +5328,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Bind a function to the resize event of each matched element.</shortDescription>
 <description>The resize event fires when a document view is resized</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the resize event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -5350,7 +5350,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Bind a function to the scroll event of each matched element.</shortDescription>
 <description>The scroll event fires when a document view is scrolled.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the scroll event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -5398,7 +5398,7 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Bind a function to the select event of each matched element.</shortDescription>
 <description>The select event fires when a user selects some text in a text field, including input and textarea.</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the select event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -5545,10 +5545,10 @@ Can be filtered with an optional expression.</description>
 <shortDescription>Show all matched elements using a graceful animation and firing an optional callback after completion.</shortDescription>
 <description>The height, width, and opacity of each of the matched elements are changed dynamically according to the specified speed.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -5640,7 +5640,7 @@ Can be filtered with an optional expression.</description>
 Can be filtered with an optional expressions. </shortDescription>
 <description/>
 <parameters>
-<parameter name="expr" datatype="String" required="false">
+<parameter name="expr" datatype="String" usage="optional">
 <description>An expression to filter the sibling Elements with</description>
 </parameter>
 </parameters>
@@ -5726,10 +5726,10 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Selects a subset of the matched elements.</shortDescription>
 <description>Behaves exactly like the built-in Array slice method. </description>
 <parameters>
-<parameter name="start" datatype="Integer" required="true">
+<parameter name="start" datatype="Integer" usage="required">
 <description>Where to start the subset. The first element is at zero. Can be negative to start from the end of the selection.</description>
 </parameter>
-<parameter name="end" datatype="Integer" required="false">
+<parameter name="end" datatype="Integer" usage="optional">
 <description>Where to end the subset. If unspecified, ends at the end of the selection.</description>
 </parameter>
 </parameters>
@@ -5807,10 +5807,10 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Reveal all matched elements by adjusting their height and firing an optional callback after completion.</shortDescription>
 <description>Only the height is adjusted for this animation, causing all matched elements to be revealed in a "sliding" manner.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -5876,10 +5876,10 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Toggle the visibility of all matched elements by adjusting their height and firing an optional callback after completion.</shortDescription>
 <description>Only the height is adjusted for this animation, causing all matched elements to be hidden or shown in a "sliding" manner.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -5942,10 +5942,10 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Hide all matched elements by adjusting their height and firing an optional callback after completion.</shortDescription>
 <description>Only the height is adjusted for this animation, causing all matched elements to be hidden in a "sliding" manner.</description>
 <parameters>
-<parameter name="speed" datatype="String, Number " required="true">
+<parameter name="speed" datatype="String, Number " usage="required">
 <description>A string representing one of the three predefined speeds ("slow", "normal", or "fast") or the number of milliseconds to run the animation (e.g. 1000).</description>
 </parameter>
-<parameter name="callback" datatype="Function" required="false">
+<parameter name="callback" datatype="Function" usage="optional">
 <description>A function to be executed whenever the animation completes, executes once for each element animated against.
 
 &lt;pre&gt;function callback() {
@@ -6070,7 +6070,7 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Bind a function to the submit event of each matched element.</shortDescription>
 <description>The select event fires when a form is submitted</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>A function to bind to the submit event on each of the matched elements.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -6167,7 +6167,7 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Set the text contents of all matched elements.</shortDescription>
 <description>Similar to html(), but escapes HTML (replace "&lt;" and "&gt;" with their HTML entities).</description>
 <parameters>
-<parameter name="val" datatype="String" required="true">
+<parameter name="val" datatype="String" usage="required">
 <description>The text value to set the contents of the element to.</description>
 </parameter>
 </parameters>
@@ -6188,7 +6188,7 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Set the text contents of all matched elements.</shortDescription>
 <description>Similar to html(), but escapes HTML (replace "&lt;" and "&gt;" with their HTML entities).</description>
 <parameters>
-<parameter name="val" datatype="String" required="true">
+<parameter name="val" datatype="String" usage="required">
 <description>The text value to set the contents of the element to.</description>
 </parameter>
 </parameters>
@@ -6229,7 +6229,7 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Toggle between two function calls every other click.</shortDescription>
 <description>&lt;p&gt;Whenever a matched element is clicked, the first specified function is fired, when clicked again, the second is fired. All subsequent clicks continue to rotate through the two functions.&lt;/p&gt;&lt;p&gt;Use unbind("click") to remove.&lt;/p&gt;</description>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>The function to execute on every even click.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -6237,7 +6237,7 @@ Can be filtered with an optional expressions. </shortDescription>
 }
 &lt;/pre&gt;</description>
 </parameter>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>The function to execute on every odd click.
 &lt;pre&gt;function callback(eventObject) {
   this; // dom element
@@ -6290,7 +6290,7 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Adds the specified class if it is not present, removes the specified class if it is present.</shortDescription>
 <description/>
 <parameters>
-<parameter name="class" datatype="String" required="true">
+<parameter name="class" datatype="String" usage="required">
 <description>A CSS class to toggle on the elements.</description>
 </parameter>
 </parameters>
@@ -6321,10 +6321,10 @@ Can be filtered with an optional expressions. </shortDescription>
 <shortDescription>Trigger a type of event on every matched element.</shortDescription>
 <description>&lt;p&gt;This will also cause the default action of the browser with the same name (if one exists) to be executed. For example, passing 'submit' to the trigger() function will also cause the browser to submit the form. This default action can be prevented by returning false from one of the functions bound to the event.&lt;/p&gt;&lt;p&gt;You can also trigger custom events registered with bind.&lt;/p&gt;</description>
 <parameters>
-<parameter name="type " datatype="String" required="true">
+<parameter name="type " datatype="String" usage="required">
 <description>An event type to trigger.</description>
 </parameter>
-<parameter name="data " datatype="Array" required="false">
+<parameter name="data " datatype="Array" usage="optional">
 <description>Additional data to pass as arguments (after the event object) to the event handler.</description>
 </parameter>
 </parameters>
@@ -6384,10 +6384,10 @@ $("p").trigger("myEvent", ["Hello","World!"]);</code>
 <shortDescription>This particular method triggers all bound event handlers on an element (for a specific event type) WITHOUT executing the browsers default actions.</shortDescription>
 <description/>
 <parameters>
-<parameter name="type " datatype="String" required="true">
+<parameter name="type " datatype="String" usage="required">
 <description>An event type to trigger.</description>
 </parameter>
-<parameter name="data " datatype="Array" required="false">
+<parameter name="data " datatype="Array" usage="optional">
 <description>Additional data to pass as arguments (after the event object) to the event handler.</description>
 </parameter>
 </parameters>
@@ -6419,10 +6419,10 @@ $("p").trigger("myEvent", ["Hello","World!"]);</code>
 <shortDescription>This does the opposite of bind, it removes bound events from each of the matched elements.</shortDescription>
 <description>&lt;p&gt;Without any arguments, all bound events are removed.&lt;/p&gt;&lt;p&gt;You can also unbind custom events registered with bind.&lt;/p&gt;&lt;p&gt;If the type is provided, all bound events of that type are removed.&lt;/p&gt;&lt;p&gt;If the function that was passed to bind is provided as the second argument, only that specific event handler is removed.&lt;/p&gt;</description>
 <parameters>
-<parameter name="type " datatype="String" required="false">
+<parameter name="type " datatype="String" usage="optional">
 <description>An event type to unbind.</description>
 </parameter>
-<parameter name="data " datatype="Function" required="false">
+<parameter name="data " datatype="Function" usage="optional">
 <description>A function to unbind from the event on each of the set of matched elements.</description>
 </parameter>
 </parameters>
@@ -6480,7 +6480,7 @@ $("p").unbind("click", foo); // ... foo will no longer be called.</code>
 <shortDescription>Binds a function to the unload event of each matched element.</shortDescription>
 <description/>
 <parameters>
-<parameter name="fn" datatype="Function" required="true">
+<parameter name="fn" datatype="Function" usage="required">
 <description>function to bind to the unload event on each of the matched elements.
 
 &lt;pre&gt;function callback(eventObject) {
@@ -6559,7 +6559,7 @@ For older versions of jQuery use the [http://www.malsup.com/jquery/form/#fields 
 <shortDescription>Set the value attribute of every matched element.</shortDescription>
 <description>In jQuery 1.2, this is also able to set the value of select elements, but selecting the appropriate options.</description>
 <parameters>
-<parameter name="val" datatype="String" required="true">
+<parameter name="val" datatype="String" usage="required">
 <description>The value to set on the matched element.</description>
 </parameter>
 </parameters>
@@ -6592,7 +6592,7 @@ For older versions of jQuery use the [http://www.malsup.com/jquery/form/#fields 
 <shortDescription>Checks, or selects, all the radio buttons, checkboxes, and select options that match the set of values.</shortDescription>
 <description/>
 <parameters>
-<parameter name="val" datatype="Array&lt;String&gt;" required="true">
+<parameter name="val" datatype="Array&lt;String&gt;" usage="required">
 <description>The set of values to check/select.</description>
 </parameter>
 </parameters>
@@ -6673,7 +6673,7 @@ For older versions of jQuery use the [http://www.malsup.com/jquery/form/#fields 
 <shortDescription>Set the CSS width of every matched element.</shortDescription>
 <description>If no explicit unit was specified (like 'em' or '%') then "px" is concatenated to the value.</description>
 <parameters>
-<parameter name="val" datatype="String, Number" required="true">
+<parameter name="val" datatype="String, Number" usage="required">
 <description>Set the CSS 'width' property to the specified value.</description>
 </parameter>
 </parameters>
@@ -6709,7 +6709,7 @@ This works by going through the first element provided (which is generated, on t
 
 This does not work with elements that contain text. Any necessary text must be added after the wrapping is done.</description>
 <parameters>
-<parameter name="html" datatype="String" required="true">
+<parameter name="html" datatype="String" usage="required">
 <description>A string of HTML that will be created on the fly and wrapped around the target.</description>
 </parameter>
 </parameters>
@@ -6738,7 +6738,7 @@ This does not work with elements that contain text. Any necessary text must be a
 <shortDescription>Wrap all matched elements with a structure of other elements.</shortDescription>
 <description/>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>A DOM element that will be wrapped around the target.</description>
 </parameter>
 </parameters>
@@ -6768,7 +6768,7 @@ This wrapping process is most useful for injecting additional structure into a d
 
 This works by going through the first element provided (which is generated, on the fly, from the provided HTML) and finds the deepest ancestor element within its structure -- it is that element that will enwrap everything else.</description>
 <parameters>
-<parameter name="html" datatype="String" required="true">
+<parameter name="html" datatype="String" usage="required">
 <description>A string of HTML that will be created on the fly and wrapped around the target.</description>
 </parameter>
 </parameters>
@@ -6805,7 +6805,7 @@ This works by going through the first element provided (which is generated, on t
 <shortDescription>Wrap all the elements in the matched set into a single wrapper element.</shortDescription>
 <description>This is different from &lt;a href='Manipulation/wrap'&gt;.wrap()&lt;/a&gt; where each element in the matched set would get wrapped with an element.</description>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>A DOM element that will be wrapped around the target.</description>
 </parameter>
 </parameters>
@@ -6845,7 +6845,7 @@ This works by going through the first element provided (which is generated, on t
 
 This works by going through the first element provided (which is generated, on the fly, from the provided HTML) and finds the deepest ancestor element within its structure -- it is that element that will enwrap everything else.</description>
 <parameters>
-<parameter name="html" datatype="String" required="true">
+<parameter name="html" datatype="String" usage="required">
 <description>A string of HTML that will be created on the fly and wrapped around the target.</description>
 </parameter>
 </parameters>
@@ -6876,7 +6876,7 @@ This works by going through the first element provided (which is generated, on t
 <shortDescription>Wrap the inner child contents of each matched element (including text nodes) with a DOM element.</shortDescription>
 <description/>
 <parameters>
-<parameter name="elem" datatype="Element" required="true">
+<parameter name="elem" datatype="Element" usage="required">
 <description>A DOM element that will be wrapped around the target.</description>
 </parameter>
 </parameters>
