@@ -10,6 +10,13 @@ function methodTest( methodName ) {
 
 module("methods");
 
+test("default messages", function() {
+	var m = $.validator.methods;
+	$.each(m, function(key) {
+		ok( jQuery.validator.messages[key], key + " has a default message." );
+	});
+});
+
 test("digit", function() {
 	var method = methodTest("digits");
 	ok( method( "123" ), "Valid digits" );
@@ -328,12 +335,73 @@ test("creditcard", function() {
 	ok( !method( "asdf" ), "Invalid creditcard number" );
 });
 
-test("method default messages", function() {
-	var m = $.validator.methods;
-	$.each(m, function(key) {
-		ok( jQuery.validator.messages[key], key + " has a default message." );
+test("remote", function() {
+	expect(5);
+	stop();
+	var e = $("#username");
+	var v = $("#userForm").validate({
+		rules: {
+			username: {
+				required: true,
+				remote: "users.php"
+			}
+		},
+		messages: {
+			username: {
+				required: "Please",
+				remote: jQuery.format("{0} in use")
+			}
+		},
+		submitHandler: function() {
+			ok( false, "submitHandler may never be called when validating only elements");
+		}
 	});
+	$().ajaxStop(function() {
+		ok( true, "There needs to be exactly one request." );
+		equals( 1, v.size(), "There must be one error" );
+		equals( "asdf in use", v.errorList[0].message );
+		$().unbind("ajaxStop");
+		start();
+	});
+	ok( !v.element(e), "invalid element, nothing entered yet" );
+	e.val("asdf");
+	ok( !v.element(e), "still invalid, because remote validation must block until it returns" );
 });
+
+/*
+// deferred
+test("remote extensions", function() {
+	expect(5);
+	stop();
+	var e = $("#username");
+	var v = $("#userForm").validate({
+		rules: {
+			username: {
+				required: true,
+				remote: "users2.php"
+			}
+		},
+		messages: {
+			username: {
+				required: "Please"
+			}
+		},
+		submitHandler: function() {
+			ok( false, "submitHandler may never be called when validating only elements");
+		}
+	});
+	$().ajaxStop(function() {
+		ok( true, "There needs to be exactly one request." );
+		equals( 1, v.size(), "There must be one error" );
+		equals( "asdf is already taken, please try something else", v.errorList[0].message );
+		$().unbind("ajaxStop");
+		start();
+	});
+	ok( !v.element(e), "invalid element, nothing entered yet" );
+	e.val("asdf");
+	ok( !v.element(e), "still invalid, because remote validation must block until it returns" );
+});
+*/
 
 module("additional methods");
 
