@@ -249,7 +249,7 @@ $.extend($.validator, {
 		number: "Please enter a valid number.",
 		numberDE: "Bitte geben Sie eine Nummer ein.",
 		digits: "Please enter only digits",
-		creditcard: "Please enter a valid credit card.",
+		creditcard: "Please enter a valid credit card number.",
 		equalTo: "Please enter the same value again.",
 		accept: "Please enter a value with a valid extension.",
 		maxlength: $.format("Please enter no more than {0} characters."),
