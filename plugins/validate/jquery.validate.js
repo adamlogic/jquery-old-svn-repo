@@ -894,13 +894,15 @@ $.extend($.validator, {
 				this.settings.messages[element.name] = {};
 			this.settings.messages[element.name].remote = typeof previous.message == "function" ? previous.message(value) : previous.message;
 			
+			param = typeof param == "string" && {url:param} || param; 
+			
 			if ( previous.old !== value ) {
 				previous.old = value;
 				var validator = this;
 				this.startRequest(element);
 				var data = {};
 				data[element.name] = value;
-				$.ajax({
+				$.ajax($.extend(true, {
 					url: param,
 					mode: "abort",
 					port: "validate" + element.name,
@@ -921,7 +923,7 @@ $.extend($.validator, {
 						previous.valid = response;
 						validator.stopRequest(element, response);
 					}
-				});
+				}, param));
 				return "pending";
 			} else if( this.pending[element.name] ) {
 				return "pending";

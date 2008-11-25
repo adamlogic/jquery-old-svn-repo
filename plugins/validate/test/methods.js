@@ -368,6 +368,36 @@ test("remote", function() {
 	ok( !v.element(e), "still invalid, because remote validation must block until it returns" );
 });
 
+test("remote, customized ajax options", function() {
+	expect(2);
+	stop();
+	var v = $("#userForm").validate({
+		rules: {
+			username: {
+				required: true,
+				remote: {
+					url: "users.php",
+					type: "post",
+					beforeSend: function(request, settings) {
+						same(settings.type, "post");
+						same(settings.data, "username=asdf&email=email.com");
+					},
+					data: {
+						email: function() {
+							return "email.com";
+						}
+					},
+					complete: function() {
+						start();
+					}
+				}
+			}
+		}
+	});
+	$("#username").val("asdf");
+	$("#userForm").valid();
+});
+
 /*
 // deferred
 test("remote extensions", function() {

@@ -11,6 +11,7 @@
 * Added invalidHandler option as a shortcut to bind("invalid-form", function() {})
 * Fixed Safari issue for loading indicator in ajaxSubmit-integration-demo (append to body first, then hide)
 * Added test for creditcard validation and improved default message
+* Enhanced remote validation, accepting options to passthrough to $.ajax as paramter (either url string or options, including url property plus everything else that $.ajax supports)
 
 1.4
 ---
