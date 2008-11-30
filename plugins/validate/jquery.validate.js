@@ -1,5 +1,5 @@
 /*
- * jQuery validation plug-in 1.4
+ * jQuery validation plug-in 1.5
  *
  * http://bassistance.de/jquery-plugins/jquery-plugin-validation/
  * http://docs.jquery.com/Plugins/Validation
@@ -292,7 +292,7 @@ $.extend($.validator, {
 			}
 			$(this.currentForm)
 				.delegate("focusin focusout keyup", ":text, :password, :file, select, textarea", delegate)
-				.delegate("click", ":radio, :checkbox", delegate)
+				.delegate("click", ":radio, :checkbox", delegate);
 
 			if (this.settings.invalidHandler)
 				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
@@ -396,7 +396,9 @@ $.extend($.validator, {
 			if( this.settings.focusInvalid ) {
 				try {
 					$(this.findLastActive() || this.errorList.length && this.errorList[0].element || []).filter(":visible").focus();
-				} catch(e) { /* ignore IE throwing errors when focusing hidden elements */ }
+				} catch(e) {
+					// ignore IE throwing errors when focusing hidden elements
+				}
 			}
 		},
 		
