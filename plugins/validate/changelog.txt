@@ -1,3 +1,7 @@
+1.next
+---
+* Updated marketo demo to use invalidHandler option instead of binding invalid-form event
+
 1.5
 ---
 * Improved basic demo, validating confirm-password field after password changed
