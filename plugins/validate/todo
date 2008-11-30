@@ -158,16 +158,8 @@ $.validator.addMethod({
  - timepicker integration ( http://labs.perifer.se/timedatepicker/ ) 
  - integration with CakePHP ( https://trac.cakephp.org/ticket/2359 )
  - integration with tabs: http://www.netix.sk/forms/test.html 
- - intergration with rich-text-editors (FCKEditor, TinyMCE, Codepress)
- -> In simple terms, you need to "move" the content from the TinyMCE
-control to the textarea for validation.
-
-$('button.save').click(function(){
-	if (tinyMCE) tinyMCE.triggerSave();
-});
-http://wiki.moxiecode.com/index.php/TinyMCE:Functions#tinyMCE.triggerSave
- 
-http://www.fyneworks.com/jquery/FCKEditor/
+ - intergration with rich-text-editors (FCKEditor, Codepress)
+	http://www.fyneworks.com/jquery/FCKEditor/
 
 2.0
 ---

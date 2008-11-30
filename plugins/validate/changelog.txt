@@ -1,6 +1,7 @@
 1.next
 ---
 * Updated marketo demo to use invalidHandler option instead of binding invalid-form event
+* Added TinyMCE integration example
 
 1.5
 ---
