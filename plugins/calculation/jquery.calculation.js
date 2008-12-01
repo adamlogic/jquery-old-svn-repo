@@ -7,10 +7,14 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  *
- * Revision: 6
- * Version: 0.4
+ * Revision: 7
+ * Version: 0.4.02
  *
  * Revision History
+ * v0.4.02
+ * - Fixed bug where bind parameter was not being detecting if you specified
+ *   a string in method like sum(), avg(), etc.
+ * 
  * v0.4a
  * - Fixed bug in aggregate functions so that a string is passed to jQuery's
  *   text() method (since numeric zero is interpetted as false)
@@ -61,7 +65,7 @@
 	
 	// set default options
 	$.Calculation = {
-		version: "0.4a",
+		version: "0.4.02",
 		setDefaults: function(options){
 			$.extend(defaults, options);
 		}
@@ -256,20 +260,20 @@
 			// if no arguments, then return the result of the aggregate function
 			if( arguments.length == 0 )
 				return math[method](this.parseNumber());
-	
+
 			// if the selector is an options object, get the options
-			var bSelOpt = selector && selector.constructor == Object && !(selector instanceof jQuery);
-			
+			var bSelOpt = selector && (selector.constructor == Object) && !(selector instanceof jQuery);
+
 			// configure the options for this method
 			var opt = bind && bind.constructor == Object ? bind : {
-				  bind: "keyup"
+				  bind: bind || "keyup"
 				, selector: (!bSelOpt) ? selector : null
 				, oncalc: null
 			};
-	
+			
 			// if the selector is an options object, extend	the options
 			if( bSelOpt ) opt = jQuery.extend(opt, selector);
-			
+	
 			// if the selector exists, make sure it's a jQuery object
 			if( !!opt.selector ) opt.selector = $(opt.selector);
 			
