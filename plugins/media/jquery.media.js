@@ -2,13 +2,13 @@
  * jQuery Media Plugin for converting elements into rich media content.
  *
  * Examples and documentation at: http://malsup.com/jquery/media/
- * Copyright (c) 2007 M. Alsup
+ * Copyright (c) 2007-2008 M. Alsup
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.75 (02/20/2008)
+ * @version: 0.84 (12/01/2008)
  * @requires jQuery v1.1.2 or later
  * $Id$
  *
@@ -29,16 +29,14 @@
  * Thanks to Mark Hicken and Brent Pedersen for helping me debug this on the Mac!
  * Thanks to Dan Rossi for numerous bug reports and code bits!
  */
-(function($) {
+;(function($) {
 
 /**
  * Chainable method for converting elements into rich media.
  *
- * @name media
- * @param Object options Options object
- * @param Function callback fn invoked for each matched element before conversion
- * @param Function callback fn invoked for each matched element after conversion
- * @cat Plugins/media
+ * @param options
+ * @param callback fn invoked for each matched element before conversion
+ * @param callback fn invoked for each matched element after conversion
  */
 $.fn.media = function(options, f1, f2) {
     return this.each(function() {
@@ -69,7 +67,6 @@ $.fn.media = function(options, f1, f2) {
             var $div = $.fn.media[fn](this, o);
 
             $div.css('backgroundColor', o.bgColor).width(o.width);
-            
             // post-conversion callback, passes original element, new div element and fully populated options
             if (typeof f2 == 'function') f2(this, $div[0], o, player.name);
             break;
@@ -77,60 +74,6 @@ $.fn.media = function(options, f1, f2) {
     });
 };
 
-/**
- * Chainable method for preparing elements to display rich media with
- * a page overlay.
- *
- * @name mediabox
- * @param Object options Options object
- * @param Object css values for the media div
- * @cat Plugins/media
- */
-$.fn.mediabox = function(options, css) {
-    return this.click(function() {
-        if (typeof $.blockUI == 'undefined' || typeof $.blockUI.version == 'undefined' || $.blockUI.version < 1.26) {
-            if (typeof $.fn.mediabox.warning != 'undefined') return this; // one warning is enough
-            $.fn.mediabox.warning = 1;
-            alert('The mediabox method requires blockUI v1.26 or later.');
-            return false;
-        }
-        var o, p, div=0, $e = $(this).clone();
-        $e.appendTo('body').hide().css({margin: 0});
-        options = $.extend({}, options, { autoplay: 1 }); // force autoplay in box mode
-        $e.media(options, function(){}, function(origEl, newEl, opts, player) {
-            div = newEl;
-            o = opts;
-            p = player;
-        });
-        if (!div) return false;
-        // don't pull element from the dom on Safari
-        var $div = $.browser.safari ? $(div).hide() : $(div).remove();
-
-        if (o.loadingImage)
-            $div.css({
-                backgroundImage:    'url('+o.loadingImage+')',
-                backgroundPosition: 'center center',
-                backgroundRepeat:   'no-repeat'
-            });
-        if (o.boxTitle)
-            $div.prepend('<div style="margin:0;padding:0">' + o.boxTitle + '</div>');
-        
-        if (css) $div.css(css);
-
-        $div.displayBox( { width: o.width, height: o.height }, function(el) {
-            // quirkiness; sometimes media doesn't stop when removed from the DOM (especially in IE)
-            $('object,embed', el).each(function() {
-                try { this.Stop();   } catch(e) {}  // quicktime
-                try { this.DoStop(); } catch(e) {}  // real
-                try { this.controls.stop(); } catch(e) {} // windows media player
-                $(this).remove();
-            });
-        }, p == 'flash'); // <-- mac/ff workaround
-        return false;
-    });
-};
-
-  
 /**
  * Non-chainable method for adding or changing file format / player mapping
  * @name mapFormat
@@ -149,18 +92,14 @@ $.fn.media.mapFormat = function(format, player) {
 $.fn.media.defaults = {
     width:         400,
     height:        400,
-    preferMeta:    1,         // true if markup metadata takes precedence over options object
     autoplay:      0,         // normalized cross-player setting
     bgColor:       '#ffffff', // background color
-    params:        {},        // added to object element as param elements; added to embed element as attrs
+    params:        { wmode: 'transparent'},  // added to object element as param elements; added to embed element as attrs
     attrs:         {},        // added to object and embed elements as attrs
+    flvKeyName:    'file',    // key used for object src param (thanks to Andrea Ercolino)
     flashvars:     {},        // added to flash content as flashvars param/attr
     flashVersion:  '7',       // required flash version
-    expressInstaller: null,
-    
-    // MediaBox options
-    boxTitle:      null,      // MediaBox titlebar
-    loadingImage:  null,      // MediaBox loading indicator
+    expressInstaller: null,   // src for express installer
     
     // default flash video and mp3 player (@see: http://jeroenwijering.com/?item=Flash_Media_Player)
     flvPlayer:     'mediaplayer.swf',
@@ -276,7 +215,7 @@ function getTypesRegExp() {
         if (types.length) types += ',';
         types += $.fn.media.defaults.players[player].types;
     };
-    return new RegExp('\\.(' + types.replace(/,/g,'|') + ')\\b');
+    return new RegExp('\\.(' + types.replace(/,/g,'|') + ')$\\b');
 };
 
 function getGenerator(player) {
@@ -296,15 +235,17 @@ function getSettings(el, options) {
     var cls = el.className || '';
     // support metadata plugin (v1.0 and v2.0)
     var meta = $.metadata ? $el.metadata() : $.meta ? $el.data() : {};
+    meta = meta || {};
     var w = meta.width  || parseInt(((cls.match(/w:(\d+)/)||[])[1]||0));
     var h = meta.height || parseInt(((cls.match(/h:(\d+)/)||[])[1]||0));
+   
     if (w) meta.width  = w;
     if (h) meta.height = h;
     if (cls) meta.cls = cls;
 
     var a = $.fn.media.defaults;
-    var b = (($.meta || $.metadata) && $.fn.media.defaults.preferMeta) ? options : meta;
-    var c = b == options ? meta : options;
+    var b = options;
+    var c = meta;
 
     var p = { params: { bgColor: options.bgColor || $.fn.media.defaults.bgColor } };
     var opts = $.extend({}, a, b, c);
@@ -323,9 +264,9 @@ function getSettings(el, options) {
 //  Flash Player
 //
 
-// generate flash using SWFObject if possible
+// generate flash using SWFObject library if possible
 $.fn.media.swf = function(el, opts) {
-    if (typeof SWFObject == 'undefined') {
+    if (!window.SWFObject && !window.swfobject) {
         // roll our own
         if (opts.flashvars) {
             var a = [];
@@ -340,16 +281,28 @@ $.fn.media.swf = function(el, opts) {
     var id = el.id ? (' id="'+el.id+'"') : '';
     var cls = opts.cls ? (' class="' + opts.cls + '"') : '';
     var $div = $('<div' + id + cls + '>');
-    $(el).after($div).remove();
 
-    var so = new SWFObject(opts.src, 'movie_player_' + counter++, opts.width, opts.height, opts.flashVersion, opts.bgColor);
-    if (opts.expressInstaller) so.useExpressInstall(opts.expressInstaller);    
+    // swfobject v2+
+    if (window.swfobject) {
+        $(el).after($div).appendTo($div);
+        if (!el.id) el.id = 'movie_player_' + counter++;
 
-    for (var p in opts.params)
-        if (p != 'bgColor') so.addParam(p, opts.params[p]);
-    for (var f in opts.flashvars)
-        so.addVariable(f, opts.flashvars[f]);
-    so.write($div[0]);
+        // replace el with swfobject content
+        swfobject.embedSWF(opts.src, el.id, opts.width, opts.height, opts.flashVersion, 
+            opts.expressInstaller, opts.flashvars, opts.params, opts.attrs);
+    }
+    // swfobject < v2
+    else {
+        $(el).after($div).remove();
+        var so = new SWFObject(opts.src, 'movie_player_' + counter++, opts.width, opts.height, opts.flashVersion, opts.bgColor);
+        if (opts.expressInstaller) so.useExpressInstall(opts.expressInstaller);    
+
+        for (var p in opts.params)
+            if (p != 'bgColor') so.addParam(p, opts.params[p]);
+        for (var f in opts.flashvars)
+            so.addVariable(f, opts.flashvars[f]);
+        so.write($div[0]);
+    }
 
     if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
     return $div;
@@ -359,9 +312,13 @@ $.fn.media.swf = function(el, opts) {
 $.fn.media.flv = $.fn.media.mp3 = function(el, opts) {
     var src = opts.src;
     var player = /\.mp3\b/i.test(src) ? $.fn.media.defaults.mp3Player : $.fn.media.defaults.flvPlayer;
+    var key = opts.flvKeyName;
+    src = encodeURIComponent(src);
     opts.src = player;
-    opts.src = opts.src + '?file=' + src;
-    opts.flashvars = $.extend({}, { file: src }, opts.flashvars );
+    opts.src = opts.src + '?'+key+'=' + (src);
+    var srcObj = {};
+    srcObj[key] = src;
+    opts.flashvars = $.extend({}, srcObj, opts.flashvars );
     return $.fn.media.swf(el, opts);
 };
 
@@ -427,8 +384,12 @@ function generate(el, opts, player) {
         var a = ['<object width="' + opts.width + '" height="' + opts.height + '" '];
         for (var key in opts.attrs)
             a.push(key + '="'+opts.attrs[key]+'" ');
-        for (var key in o.oAttrs || {})
-            a.push(key + '="'+o.oAttrs[key]+'" ');
+        for (var key in o.oAttrs || {}) {
+            var v = o.oAttrs[key];
+            if (key == 'codebase' && window.location.protocol == 'https')
+                v = v.replace('http','https');
+            a.push(key + '="'+v+'" ');
+        }
         a.push('></ob'+'ject'+'>');
         var p = ['<param name="' + (o.oUrl || 'src') +'" value="' + opts.src + '">'];
         for (var key in opts.params)
@@ -445,7 +406,8 @@ function generate(el, opts, player) {
         for (var key in o.eAttrs || {})
             a.push(key + '="'+o.eAttrs[key]+'" ');
         for (var key in opts.params)
-            a.push(key + '="'+opts.params[key]+'" ');
+            if (key != 'wmode') // FF3/Quicktime borks on wmode
+                a.push(key + '="'+opts.params[key]+'" ');
         a.push('></em'+'bed'+'>');
     }
     // convert element to div
