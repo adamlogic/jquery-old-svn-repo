@@ -2,6 +2,7 @@
 ---
 * Updated marketo demo to use invalidHandler option instead of binding invalid-form event
 * Added TinyMCE integration example
+* Added ukrainian (ua) localization
 
 1.5
 ---
