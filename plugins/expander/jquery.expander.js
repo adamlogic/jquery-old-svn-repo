@@ -1,6 +1,6 @@
 /*
  * jQuery Expander plugin
- * Version 0.3.1  (12/09/2008)
+ * Version 0.4  (12/09/2008)
  * @requires jQuery v1.1.1+
  *
  * Dual licensed under the MIT and GPL licenses:
@@ -76,25 +76,25 @@
      		].join('')
      	  );
       }
-   	  $this
- 	    .find('span.details').hide()
- 	    .end()
- 	    .find('span.read-more a').click(function() {
-             	
- 	      $(this).parent().hide()
- 	        .next('span.details')[o.expandEffect](o.expandSpeed, function() {
-            var $details = $(this);
-            $details.css({zoom: ''});
-            if (o.collapseTimer) {
-              delayedCollapse = setTimeout(function() {  
-                reCollapse($details);
-                },
-                o.collapseTimer
-              );
-              
-            } 	          
+      var $thisDetails = $('span.details', this),
+        $readMore = $('span.read-more', this);
+   	  $thisDetails.hide();
+ 	    $readMore.find('a').click(function() {
+ 	      $readMore.hide();
+
+ 	      if (o.expandEffect === 'show' && !o.expandSpeed) {
+          o.beforeExpand($this);
+ 	        $thisDetails.show();
+          o.afterExpand($this);
+          delayCollapse(o, $thisDetails);
+ 	      } else {
+          o.beforeExpand($this);
+ 	        $thisDetails[o.expandEffect](o.expandSpeed, function() {
+            $thisDetails.css({zoom: ''});
+            o.afterExpand($this);
+            delayCollapse(o, $thisDetails);
  	        });
- 	        
+ 	      }
         return false;
  	    });
       if (o.userCollapse) {
@@ -105,18 +105,28 @@
           clearTimeout(delayedCollapse);
           var $detailsCollapsed = $(this).parents('span.details');
           reCollapse($detailsCollapsed);
+          o.onCollapse($this, true);
           return false;
         });
       }
-
     });
     function reCollapse(el) {
        el.hide()
         .prev('span.read-more').show();
     }
+    function delayCollapse(option, $collapseEl) {
+      if (option.collapseTimer) {
+        delayedCollapse = setTimeout(function() {  
+          reCollapse($collapseEl);
+          option.onCollapse($collapseEl.parent(), false);
+          },
+          option.collapseTimer
+        );
+      }
+    }
     function rSlash(rString) {
       return rString.replace(/\//,'');
-    }
+    }    
   };
     // plugin defaults
   $.fn.expander.defaults = {
@@ -134,6 +144,9 @@
     expandSpeed:      '',   // speed in milliseconds of the animation effect for expanding the text
     userCollapse:     true, // allow the user to re-collapse the expanded text.
     userCollapseText: '[collapse expanded text]',  // text to use for the link to re-collapse the text
-    userCollapsePrefix: ' '
+    userCollapsePrefix: ' ',
+    beforeExpand: function($thisEl) {},
+    afterExpand: function($thisEl) {},
+    onCollapse: function($thisEl, byUser) {}
   };
 })(jQuery);

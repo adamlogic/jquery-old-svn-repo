@@ -5,7 +5,21 @@
 <title>jQuery Expander Plugin</title>
 <link rel="stylesheet" type="text/css" media="screen" href="../jq.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="../tabs.css" />
+<script type="text/javascript" src="lib/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../jquery.tabs.pack.js"></script>
+<script type="text/javascript" src="../jquery.history.pack.js"></script>
+<script type="text/javascript" src="../chili-1.8.pack.js"></script>
 
+<script type="text/javascript">
+
+$(function() {
+    // initialize the tabs
+    var main = $('#main').tabs(1);
+    // $('#subdetails').tabs( { selectedClass: 'sample-tab-selected', bookmarkable: false });
+
+});
+
+</script>
 </head>
 <body>
 <div><a id="logo" href="http://jquery.com" title="Powered By jQuery"></a></div>
@@ -13,7 +27,7 @@
 <div id="main">
   <ul id="nav" class="anchors">
     <li><a href="#getting-started">Overview</a></li>
-    <li><a href="demo/index.html">Demo</a></li>
+    <li><a href="/expander/demo/index.html">Demo</a></li>
     <li><a href="#options">API / Options</a></li>
     <li><a href="#download">Download &amp; Support</a></li>
   </ul>
@@ -25,7 +39,7 @@
         
         <div class="step-one">Add HTML markup to your page for elements that you want to be expandable. For example:</div>
 <pre><code class="mix">
-  &lt;div id=&quot;expandable&quot;&gt;
+  &lt;div class=&quot;expandable&quot;&gt;
     &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.
@@ -67,7 +81,7 @@ $(document).ready(function() {
     <div id="options" class="tabContent">
         <h1>Expander Plugin API / Options</h1>
         <p>The Expander Plugin API provides a single method with a few options.</p>
-        <p>The still in its infancy, so do not hesitate to send bug reports or feature requests to the <a href="groups.google.com/group/jquery-en/">jQuery Google Group</a>.</p>
+        <p>Please send bug reports or feature requests to the <a href="groups.google.com/group/jquery-en/">jQuery Google Group</a>.</p>
         <dl>
             <dt><code class="method">expander(options)</code></dt>
             <dd>Truncates an element's visible text at a specified location, collapsing the rest and allowing the user to expand it if he or she wishes. </dd>
@@ -81,11 +95,17 @@ $(document).ready(function() {
                               // the value set by widow, we won't bother hiding/collapsing anything.
   expandText:       'read more...',   // text displayed in a link instead of the hidden part of the element. 
                               // clicking this will expand/show the hidden/collapsed text
+  expandPrefix:     '&hellip; ', // text to come before the expand link                              
   collapseTimer:    0,        // number of milliseconds after text has been expanded at which to collapse the text again
   expandEffect:     'fadeIn',
   expandSpeed:      '',       // speed in milliseconds of the animation effect for expanding the text
   userCollapse:     true,     // allow the user to re-collapse the expanded text.
-  userCollapseText: '[collapse expanded text]'  // text to use for the link to re-collapse the text
+  userCollapseText: '[collapse expanded text]',  // text to use for the link to re-collapse the text
+  userCollapsePrefix: ' ', // text to come before the re-collapse link
+  beforeExpand: function($thisEl) {}, // function that is called immediately upon expanding, before the expand occurs
+  afterExpand: function($thisEl) {}, // function that is called after the details have finished expanding
+  onCollapse: function($thisEl, byUser) {} //function that is called when the details are collapsed (immediately after)
+  
 };
 </code></pre>
     
