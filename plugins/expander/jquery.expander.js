@@ -1,6 +1,6 @@
 /*
  * jQuery Expander plugin
- * Version 0.1.1  (02/02/2008)
+ * Version 0.3.1  (12/09/2008)
  * @requires jQuery v1.1.1+
  *
  * Dual licensed under the MIT and GPL licenses:
@@ -10,7 +10,7 @@
  */
 
 
-;(function($) {
+(function($) {
 
   $.fn.expander = function(options) {
 
@@ -21,7 +21,7 @@
       var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
      	var cleanedTag, startTags, endTags;	
      	var allText = $this.html();
-     	var startText = allText.slice(0, o.slicePoint).replace(/(\w)$/,'');
+     	var startText = allText.slice(0, o.slicePoint).replace(/\w+$/,'');
      	startTags = startText.match(/<\w[^>]*>/g);
    	  if (startTags) {startText = allText.slice(0,o.slicePoint + startTags.join('').length).replace(/\w+$/,'');}
    	  
@@ -59,13 +59,17 @@
               }
             }
           }
-          endText = cleanedTag ? cleanedTag + endText : endText;
+
+          endText = cleanedTag && cleanedTag + endText || endText;
         }
      	  $this.html([
      		startText,
-     		'<a href="#" class="read-more">',
-     		  o.expandText,
-     		'</a>',
+     		'<span class="read-more">',
+     		o.expandPrefix,
+       		'<a href="#">',
+       		  o.expandText,
+       		'</a>',
+        '</span>',
      		'<span class="details">',
      		  endText,
      		'</span>'
@@ -75,16 +79,15 @@
    	  $this
  	    .find('span.details').hide()
  	    .end()
- 	    .find('a.read-more').click(function() {
+ 	    .find('span.read-more a').click(function() {
              	
- 	      $(this).hide()
+ 	      $(this).parent().hide()
  	        .next('span.details')[o.expandEffect](o.expandSpeed, function() {
-            var $self = $(this);
-            $self.css({zoom: ''});
-            o.onExpand();
+            var $details = $(this);
+            $details.css({zoom: ''});
             if (o.collapseTimer) {
               delayedCollapse = setTimeout(function() {  
-                reCollapse($self);
+                reCollapse($details);
                 },
                 o.collapseTimer
               );
@@ -96,12 +99,12 @@
  	    });
       if (o.userCollapse) {
         $this
-        .find('span.details').append(' <a class="re-collapse" href="#">' + o.userCollapseText + '</a>')
-        .find('a.re-collapse').click(function() {
+        .find('span.details').append('<span class="re-collapse">' + o.userCollapsePrefix + '<a href="#">' + o.userCollapseText + '</a></span>');
+        $this.find('span.re-collapse a').click(function() {
+
           clearTimeout(delayedCollapse);
-          var $spanCollapse = $(this).parent();
-          reCollapse($spanCollapse);
-          o.onCollapse();
+          var $detailsCollapsed = $(this).parents('span.details');
+          reCollapse($detailsCollapsed);
           return false;
         });
       }
@@ -109,7 +112,7 @@
     });
     function reCollapse(el) {
        el.hide()
-        .prev('a.read-more').show();
+        .prev('span.read-more').show();
     }
     function rSlash(rString) {
       return rString.replace(/\//,'');
@@ -123,14 +126,14 @@
     widow:            4,  // a threshold of sorts for whether to initially hide/collapse part of the element's contents. 
                           // If after slicing the contents in two there are fewer words in the second part than 
                           // the value set by widow, we won't bother hiding/collapsing anything.
-    expandText:         'read more...', // text displayed in a link instead of the hidden part of the element. 
+    expandText:       'read more', // text displayed in a link instead of the hidden part of the element. 
                                       // clicking this will expand/show the hidden/collapsed text
+    expandPrefix:     '&hellip; ',
     collapseTimer:    0, // number of milliseconds after text has been expanded at which to collapse the text again
     expandEffect:     'fadeIn',
     expandSpeed:      '',   // speed in milliseconds of the animation effect for expanding the text
     userCollapse:     true, // allow the user to re-collapse the expanded text.
     userCollapseText: '[collapse expanded text]',  // text to use for the link to re-collapse the text
-    onExpand: function() {},
-    onCollapse: function() {}
+    userCollapsePrefix: ' '
   };
 })(jQuery);
