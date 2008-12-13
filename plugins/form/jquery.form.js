@@ -239,6 +239,12 @@ $.fn.ajaxSubmit = function(options) {
             if (opts.timeout)
                 setTimeout(function() { timedOut = true; cb(); }, opts.timeout);
 
+            // add "format" for ruby on rails to render the appropriate response
+            if (opts.dataType == 'json' || opts.dataType == 'script') {
+              options.extraData = options.extraData || {};
+              options.extraData.format = 'js';
+            }
+
             // add "extra" data to form if provided in options
             var extraInputs = [];
             try {
